@@ -13,8 +13,6 @@ namespace Attrahere.Model
     {
         public Point Center { get; set; }
 
-        public double RadiusScale { get; set; }
-
         public PixelFormat PixelFormat { get; set; }
 
         public Rectangle Area { get; set; }
@@ -24,14 +22,12 @@ namespace Attrahere.Model
         public int MaxIterationCount { get; set; }
 
         public GeneratorSettings(Rectangle area, double radius, 
-            int iterationCount, PixelFormat pixelFormat, 
-            double radiusmulti, Point center)
+            int iterationCount, PixelFormat pixelFormat, Point center)
         {
             this.Area = area;
             this.Radius = radius;
             this.MaxIterationCount = iterationCount;
             this.PixelFormat = pixelFormat;
-            this.RadiusScale = radiusmulti;
             this.Center = center;
         }
     }   

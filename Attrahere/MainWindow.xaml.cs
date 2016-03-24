@@ -28,17 +28,8 @@ namespace Attrahere
 
         public MainWindow()
         {
-            InitializeComponent();
-
-            
-        }
-
-        private void InitBitmap(int width, int height, PixelFormat format)
-        {
-            wBitmap = new WriteableBitmap(
-                width, height, 100, 100,
-                format, null);            
-        }
+            InitializeComponent();          
+        }    
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -51,59 +42,59 @@ namespace Attrahere
                 // szerokość obszaru do narysowania
                 Width = Convert.ToDouble(Width_TB.Text),
                 // wysokość obszaru do narysowania
-                Height = Convert.ToDouble(Height_TB.Text)
+                Height = Convert.ToDouble(Width_TB.Text)
             };
             // format zapisu kolorów
             PixelFormat format = PixelFormats.Bgr32;
+            // środek generowanej grafiki
             Point center = new Point(Convert.ToDouble(centerX_TB.Text), Convert.ToDouble(centerY_TB.Text));
 
-            double radiusmultiplayer = Convert.ToDouble(1);
-
+            // stwórz ustawienia generatora
             GeneratorSettings GeneratorSettings =
-                new GeneratorSettings(area, radius, iterCount, format, radiusmultiplayer,center);
+                new GeneratorSettings(area, radius, iterCount, format, center);
 
-            InitBitmap((int)GeneratorSettings.Area.Width, (int)GeneratorSettings.Area.Height, format);
+            // zainitializuj bitmapę na którą fraktal będzie zapisywany
+            InitBitmap((int)GeneratorSettings.Area.Width, (int)GeneratorSettings.Area.Width, format);
 
+            // stwórz klasę mandelbrot na podstawie ustawień
             Mandel = new Mandelbrot(GeneratorSettings);
 
+            // wygeneruj tablicę bajtów
             byte[] arr = Mandel.GenerateArray();
 
+            // zapisz tablicę bajtów do bitmapy
             wBitmap.WritePixels(
                 new Int32Rect(0, 0, wBitmap.PixelWidth,
                 wBitmap.PixelHeight), arr, wBitmap.PixelWidth * ((wBitmap.Format.BitsPerPixel + 7) / 8), 0);
 
+            // stwórz obraz z bitmapy i dodaj go do scroll viewera
             Image fractalImage = new Image() { Width = wBitmap.Width, Height = wBitmap.Height, Source = wBitmap };
             fractalImage.MouseMove += FractalImage_MouseMove;
             fractalImage.MouseDown += FractalImage_MouseDown;         
             sView.Content = fractalImage;
         }
 
+        private void InitBitmap(int width, int height, PixelFormat format)
+        {
+            wBitmap = new WriteableBitmap(
+                width, height, 100, 100,
+                format, null);
+        }
+
         private void FractalImage_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Point cover = e.GetPosition(sender as FrameworkElement);
-            FractalSphere fs = Mandel.ReturnFractalSphere();
-            centerX_TB.Text =
-                (fs.ComplexStart.Y +
-                Mandel.GetActualRadius() * 2 * (cover.Y) / (sender as FrameworkElement).ActualHeight)
-                .ToString();
-            centerY_TB.Text =
-                (fs.ComplexStart.X +
-                (Mandel.GetActualRadius() * 2 * (cover.X / (sender as FrameworkElement).ActualWidth)))
-                .ToString();
+            Point p = Mandel.GetRealisticPoint((int)cover.X, (int)(sender as FrameworkElement).Height - (int)cover.Y);
+            centerX_TB.Text = p.X.ToString();
+            centerY_TB.Text = p.Y.ToString();
         }
 
         private void FractalImage_MouseMove(object sender, MouseEventArgs e)
         {
             Point cover = e.GetPosition(sender as FrameworkElement);
-            FractalSphere fs = Mandel.ReturnFractalSphere();
-            covery.Text =
-                (fs.ComplexStart.X +
-                (Mandel.GetActualRadius() * 2 * (cover.X / (sender as FrameworkElement).ActualWidth)))
-                .ToString();
-            coverx.Text = 
-                (fs.ComplexStart.Y +
-                Mandel.GetActualRadius() * 2  * (cover.Y )/ (sender as FrameworkElement).ActualHeight)
-                .ToString();
+            Point p = Mandel.GetRealisticPoint((int)cover.X, (int)(sender as FrameworkElement).Height - (int)cover.Y);
+            covery.Text = p.Y.ToString();
+            coverx.Text = p.X.ToString();
         }
     }
 }

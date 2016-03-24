@@ -36,13 +36,13 @@ namespace Attrahere.Tools
            
             public WeirdDraft(Mandelbrot p)
             {
+                // ustaw rodzica
                 Parent = p;
                 Sphere = new FractalSphere(Parent.Settings.Radius, Parent.Settings.Center);
                 Delta = Parent.Counter.CountDelta(Parent.Settings.Radius);
                 OnePixelDistanceOnAxisX =
                     Parent.Counter.CountOneStepDistance(Parent.Settings.Radius, Parent.Settings.Area.Width);
-                OnePixelDistanceOnAxisY =
-                    Parent.Counter.CountOneStepDistance(Parent.Settings.Radius, Parent.Settings.Area.Height);
+                OnePixelDistanceOnAxisY = OnePixelDistanceOnAxisX;
                 this.ImageInBytes = new byte[Parent.Counter.CountHowManyBytesINeed(
                 (int)Parent.Settings.Area.Width,
                 (int)Parent.Settings.Area.Height,
@@ -93,29 +93,39 @@ namespace Attrahere.Tools
             Magican = new ColoursMagican(new ColoursMagican.ColoursMagicanSettings());       
         }
 
+        public Point GetRealisticPoint(int pixelX,int pixelY)
+        {
+            return new Point(
+                            Draft.Sphere.ComplexStart.X + (pixelX * Draft.OnePixelDistanceOnAxisX),
+                            Draft.Sphere.ComplexStart.Y - ((Settings.Area.Height - pixelY) * Draft.OnePixelDistanceOnAxisY));
+        }
+
         public byte[] GenerateArray()
-        {           
-            for (int i = 0; i < Settings.Area.Width; i++)
+        { 
+            // iteruj po osi y          
+            for (int i = (int)Settings.Area.Width-1; i >= 0; i--)
             {
-                for (int j = 0; j < Settings.Area.Height; j++)
+                // iteruj po osi x
+                for (int j = 0; j < (int)Settings.Area.Height; j++)
                 {
-                    var rate = Counter.CountPointGrowthSpeedRate(
-                        new Point(
-                            Draft.Sphere.ComplexStart.X + i * Draft.OnePixelDistanceOnAxisX,
-                        Draft.Sphere.ComplexStart.Y + j * Draft.OnePixelDistanceOnAxisY), 
-                        Settings.MaxIterationCount, Settings.Radius, Settings.RadiusScale);
-                    //Debug.Write(rate + "   ");
+                    // stwórz rzeczywisty punkt który aktualnie jest rozpatrywany
+                    Point actualXY = GetRealisticPoint(j, i);
+
+                    // Oblicz stopień dążenia do przekroczenia promienia (wartości <0,1>)
+                    var rate = Counter.CountPointGrowthSpeedRate(actualXY, Settings.MaxIterationCount);
                     if (rate>1)
                     {
+                        // jeśli stopień przekracza 1 to dodaj czarny pixel
                         Draft.AddNewPixelToArray(Colors.Black);
                     }
                     else
                     {
-                        Draft.AddNewPixelToArray(
-                        Magican.GetColor(rate));
+                        // jeśli stopień mieści się w przedziale, to dodaj obliczony kolor
+                        Draft.AddNewPixelToArray(Magican.GetColor(rate));
                     }                  
                 }
             }
+            // zwróć tablicę bitów
             return Draft.ImageInBytes;
         }              
     }

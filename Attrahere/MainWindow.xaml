@@ -18,15 +18,15 @@
                 <TextBox x:Name="Radius_TB" Text="2"/>
                 <TextBlock Text="Ilość Iteracji(int)"/>
                 <TextBox x:Name="Iter_TB" Text="20"/>
-                <TextBlock Text="Szerokość obrazu (px)(double)"/>
+                <TextBlock Text="Rozmiar obrazu (px)(double)"/>
                 <TextBox x:Name="Width_TB" Text="650"/>
-                <TextBlock Text="Wysokosć obrazu (px)(double)"/>
-                <TextBox x:Name="Height_TB" Text="650"/>
+                <!--<TextBlock Text="Wysokosć obrazu (px)(double)"/>
+                <TextBox x:Name="Height_TB" Text="650"/>-->
                 <!--<TextBlock Text="Mnożnik promienia - im wyższy tym łatwiej wyjść (double)"/>
                 <TextBox x:Name="RadiusMultiplayer_TB" Text="1"/>-->
-                <TextBlock Text="Punkt(x) (double)" />
+                <TextBlock Text="Punkt centralny(x) (double)" />
                 <TextBox x:Name="centerX_TB" Text="0"/>
-                <TextBlock Text="Punkt(y) (double)" />
+                <TextBlock Text="Punkt centralny(y) (double)" />
                 <TextBox x:Name="centerY_TB" Text="0"/>
                 <Button Content="Generuj" Click="Button_Click"/>
             </StackPanel>

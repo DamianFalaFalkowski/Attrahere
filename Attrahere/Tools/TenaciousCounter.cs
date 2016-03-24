@@ -10,6 +10,11 @@ namespace Attrahere.Tools
 {
     public class TenaciousCounter
     {
+        /// <summary>
+        /// Oblicz rzeczywistą odległość pomiędzy krańcami generowanego pola
+        /// </summary>
+        /// <param name="Radius">Promień fraktala</param>
+        /// <returns></returns>
         public double CountDelta(double Radius)
         {
             return 2 * Radius;
@@ -17,7 +22,7 @@ namespace Attrahere.Tools
 
         public double CountOneStepDistance(double radius, double ImageSize)        
         {
-            return 2*radius / ImageSize;
+            return (2 * radius) / ImageSize;
         }
 
         public int CountHowManyBytesINeed(int PixelWidth, int PixelHeight, PixelFormat format)
@@ -26,11 +31,12 @@ namespace Attrahere.Tools
             return step * PixelHeight;
         }
 
-        public double CountPointGrowthSpeedRate(Point ComplexPoint, int MaximumIterationCount, double MaximumRadius, double Radiusscale)
+        public double CountPointGrowthSpeedRate(Point ComplexPoint, int MaximumIterationCount)
         {
+            // częsc rzeczywista rozpatrywanego punktu
             double a = ComplexPoint.X;
-            double b = ComplexPoint.Y;         
-            double rmax = MaximumRadius;
+            // część urojona rozpatrywanego punktu
+            double b = ComplexPoint.Y;
             // iolość iteracji do przejscia
             int maxIndex = MaximumIterationCount;
             // aktualny index
@@ -51,27 +57,12 @@ namespace Attrahere.Tools
                 zb = (2 * za0 * zb0 + b);
                 //double modz = (za * za) + Math.Sqrt((za * za) + (zb * zb));
                 double modz = (za * za) + (zb * zb);
-                if (modz * Radiusscale > 4)
+                if (modz > 4)
                 {
                     return (double)index / (double)maxIndex;
                 }
                 index++;
             }
-        }
-
-        /// <summary>
-        /// Class for complex numbers x = x.real + i*x.imaginary
-        /// </summary>
-        public class complex_t
-        {
-            public double real;
-            public double imaginary;
-
-            //calculate squared modus of given complex c
-            public double complexModSq()
-            {
-                return (real * real + imaginary * imaginary);
-            }
-        }
+        }      
     }
 }

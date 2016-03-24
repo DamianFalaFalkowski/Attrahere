@@ -12,3 +12,17 @@ c:\users\damian\documents\visual studio 2015\Projects\Attrahere\Attrahere\obj\Re
 c:\users\damian\documents\visual studio 2015\Projects\Attrahere\Attrahere\obj\Release\Attrahere.exe
 c:\users\damian\documents\visual studio 2015\Projects\Attrahere\Attrahere\obj\Release\Attrahere.pdb
 c:\users\damian\documents\visual studio 2015\Projects\Attrahere\Attrahere\obj\Release\Attrahere.csprojResolveAssemblyReference.cache
+D:\Github-Repozytoria\Attrahere\Attrahere\bin\Release\Attrahere.exe.config
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Release\Attrahere.exe
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Release\Attrahere.pdb
+D:\Github-Repozytoria\Attrahere\Attrahere\bin\Release\Attrahere.exe
+D:\Github-Repozytoria\Attrahere\Attrahere\bin\Release\Attrahere.pdb
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Release\Attrahere.csprojResolveAssemblyReference.cache
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Release\MainWindow.g.cs
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Release\App.g.cs
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Release\Attrahere_MarkupCompile.cache
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Release\Attrahere_MarkupCompile.lref
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Release\MainWindow.baml
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Release\Attrahere.g.resources
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Release\Attrahere.Properties.Resources.resources
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Release\Attrahere.csproj.GenerateResource.Cache

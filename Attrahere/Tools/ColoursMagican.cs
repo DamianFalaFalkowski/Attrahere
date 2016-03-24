@@ -35,25 +35,25 @@ namespace Attrahere.Tools
             byte r = 0;
             byte g = 0;
             byte b = 0;
-            if ((int)val / (int)255 == 0)
+            if ((int)val / (int)255 == 2)
             {
                 b = (byte)(255 - 1/2*value);
                 g = (byte)(0 + 1 / 2 * value);
                 r = (byte)(0);
             }
-            else if ((int)val / (int)255 == 1)
+            else if ((int)val / (int)255 == 3)
             {
                 b = (byte)(130 - 1 / 2 * value);
                 g = (byte)(120+1/2*value);
                 r = (byte)(0 + value);
             }
-            else if ((int)val / (int)255 == 2)
+            else if ((int)val / (int)255 == 0)
             {
                 b = (byte)(0);
                 g = (byte)(255 - 1 / 2 * value);
                 r = (byte)(0 + val / 2);
             }
-            else if ((int)val / (int)255 == 3)
+            else if ((int)val / (int)255 == 1)
             {
                 b = (byte)(0);
                 g = (byte)(130 - 1 / 2 * value);

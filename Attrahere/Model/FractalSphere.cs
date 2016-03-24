@@ -6,16 +6,23 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace Attrahere.Model
-{
-   public class FractalSphere
+{   
+    public class FractalSphere
     {
-       public Point ComplexStart { get; private set; }
-       public Point ComplexEnd { get; private set; }
+        public Point ComplexStart { get; private set; }
+        public Point ComplexEnd { get; private set; }
+        public double Radius { get; private set; }
 
-       public FractalSphere(double radius, Point center)
-       {
-           ComplexStart = new Point(-radius+center.X, -radius+center.Y);
-           ComplexEnd = new Point(radius + center.X, radius+center.Y);
-       }
-   }   
+        /// <summary>
+        /// to do
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <param name="center"></param>
+        public FractalSphere(double radius, Point center)
+        {
+            Radius = radius;
+            ComplexStart = new Point(center.X - Radius, center.Y + radius);
+            ComplexEnd = new Point(center.X + radius, center.Y - radius);
+        }
+    }   
 }
