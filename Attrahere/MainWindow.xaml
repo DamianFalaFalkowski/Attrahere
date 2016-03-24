@@ -1,0 +1,58 @@
+﻿<Window x:Class="Attrahere.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Attrahere"
+        mc:Ignorable="d"
+        Title="Attrahere" Height="350" Width="525">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <StackPanel>
+                <TextBlock Text="Promień(double)"/>
+                <TextBox x:Name="Radius_TB" Text="2"/>
+                <TextBlock Text="Ilość Iteracji(int)"/>
+                <TextBox x:Name="Iter_TB" Text="20"/>
+                <TextBlock Text="Szerokość obrazu (px)(double)"/>
+                <TextBox x:Name="Width_TB" Text="1500"/>
+                <TextBlock Text="Wysokosć obrazu (px)(double)"/>
+                <TextBox x:Name="Height_TB" Text="1500"/>
+                <TextBlock Text="Mnożnik promienia - im wyższy tym łatwiej wyjść (double)"/>
+                <TextBox x:Name="RadiusMultiplayer_TB" Text="1"/>
+                <TextBlock Text="Punkt(x) (double)" />
+                <TextBox x:Name="centerX_TB" Text="0"/>
+                <TextBlock Text="Punkt(y) (double)" />
+                <TextBox x:Name="centerY_TB" Text="0"/>
+                <Button Content="Generuj" Click="Button_Click"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="y:" Margin="0"/>
+                    <TextBlock x:Name="coverx"/>
+                </StackPanel>
+                <Rectangle Height="5"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="x:" Margin="0"/>
+                    <TextBlock x:Name="covery"/>
+                </StackPanel>
+                
+                
+            </StackPanel>
+        </Grid>
+        
+
+
+
+
+
+
+        <ScrollViewer Grid.Column="1" x:Name="sView" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+        </ScrollViewer>
+        
+    </Grid>
+</Window>

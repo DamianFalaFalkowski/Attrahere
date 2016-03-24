@@ -1,0 +1,14 @@
+c:\users\damian\documents\visual studio 2015\Projects\Attrahere\Attrahere\bin\Release\Attrahere.exe.config
+c:\users\damian\documents\visual studio 2015\Projects\Attrahere\Attrahere\bin\Release\Attrahere.exe
+c:\users\damian\documents\visual studio 2015\Projects\Attrahere\Attrahere\bin\Release\Attrahere.pdb
+c:\users\damian\documents\visual studio 2015\Projects\Attrahere\Attrahere\obj\Release\MainWindow.g.cs
+c:\users\damian\documents\visual studio 2015\Projects\Attrahere\Attrahere\obj\Release\App.g.cs
+c:\users\damian\documents\visual studio 2015\Projects\Attrahere\Attrahere\obj\Release\Attrahere_MarkupCompile.cache
+c:\users\damian\documents\visual studio 2015\Projects\Attrahere\Attrahere\obj\Release\Attrahere_MarkupCompile.lref
+c:\users\damian\documents\visual studio 2015\Projects\Attrahere\Attrahere\obj\Release\MainWindow.baml
+c:\users\damian\documents\visual studio 2015\Projects\Attrahere\Attrahere\obj\Release\Attrahere.g.resources
+c:\users\damian\documents\visual studio 2015\Projects\Attrahere\Attrahere\obj\Release\Attrahere.Properties.Resources.resources
+c:\users\damian\documents\visual studio 2015\Projects\Attrahere\Attrahere\obj\Release\Attrahere.csproj.GenerateResource.Cache
+c:\users\damian\documents\visual studio 2015\Projects\Attrahere\Attrahere\obj\Release\Attrahere.exe
+c:\users\damian\documents\visual studio 2015\Projects\Attrahere\Attrahere\obj\Release\Attrahere.pdb
+c:\users\damian\documents\visual studio 2015\Projects\Attrahere\Attrahere\obj\Release\Attrahere.csprojResolveAssemblyReference.cache
