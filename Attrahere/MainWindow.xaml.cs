@@ -57,7 +57,7 @@ namespace Attrahere
             PixelFormat format = PixelFormats.Bgr32;
             Point center = new Point(Convert.ToDouble(centerX_TB.Text), Convert.ToDouble(centerY_TB.Text));
 
-            double radiusmultiplayer = Convert.ToDouble(RadiusMultiplayer_TB.Text);
+            double radiusmultiplayer = Convert.ToDouble(1);
 
             GeneratorSettings GeneratorSettings =
                 new GeneratorSettings(area, radius, iterCount, format, radiusmultiplayer,center);
@@ -82,11 +82,13 @@ namespace Attrahere
         {
             Point cover = e.GetPosition(sender as FrameworkElement);
             FractalSphere fs = Mandel.ReturnFractalSphere();
-            centerX_TB.Text = (fs.ComplexStart.Y +
-                (4  * cover.Y )/ 650)
+            centerX_TB.Text =
+                (fs.ComplexStart.Y +
+                Mandel.GetActualRadius() * 2 * (cover.Y) / (sender as FrameworkElement).ActualHeight)
                 .ToString();
-            centerY_TB.Text = (fs.ComplexStart.X +
-                (4 * cover.X) / 650 )
+            centerY_TB.Text =
+                (fs.ComplexStart.X +
+                (Mandel.GetActualRadius() * 2 * (cover.X / (sender as FrameworkElement).ActualWidth)))
                 .ToString();
         }
 
@@ -94,13 +96,13 @@ namespace Attrahere
         {
             Point cover = e.GetPosition(sender as FrameworkElement);
             FractalSphere fs = Mandel.ReturnFractalSphere();
-            coverx.Text =
+            covery.Text =
                 (fs.ComplexStart.X +
-                (4 * cover.X) / (sender as FrameworkElement).ActualWidth)
+                (Mandel.GetActualRadius() * 2 * (cover.X / (sender as FrameworkElement).ActualWidth)))
                 .ToString();
-            covery.Text = 
+            coverx.Text = 
                 (fs.ComplexStart.Y +
-                (4  * cover.Y )/ (sender as FrameworkElement).ActualHeight)
+                Mandel.GetActualRadius() * 2  * (cover.Y )/ (sender as FrameworkElement).ActualHeight)
                 .ToString();
         }
     }

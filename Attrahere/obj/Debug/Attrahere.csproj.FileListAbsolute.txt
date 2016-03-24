@@ -15,3 +15,14 @@ c:\users\damian\documents\visual studio 2015\Projects\Attrahere\Attrahere\obj\De
 D:\Github-Repozytoria\Attrahere\Attrahere\bin\Debug\Attrahere.exe.config
 D:\Github-Repozytoria\Attrahere\Attrahere\obj\Debug\Attrahere.exe
 D:\Github-Repozytoria\Attrahere\Attrahere\obj\Debug\Attrahere.pdb
+D:\Github-Repozytoria\Attrahere\Attrahere\bin\Debug\Attrahere.exe
+D:\Github-Repozytoria\Attrahere\Attrahere\bin\Debug\Attrahere.pdb
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Debug\Attrahere.csprojResolveAssemblyReference.cache
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Debug\MainWindow.g.cs
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Debug\App.g.cs
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Debug\Attrahere_MarkupCompile.cache
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Debug\Attrahere_MarkupCompile.lref
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Debug\MainWindow.baml
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Debug\Attrahere.g.resources
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Debug\Attrahere.Properties.Resources.resources
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Debug\Attrahere.csproj.GenerateResource.Cache

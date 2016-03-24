@@ -80,6 +80,11 @@ namespace Attrahere.Tools
             return Draft.Sphere;
         }
 
+        public double GetActualRadius()
+        {
+            return Settings.Radius;
+        }
+
         public Mandelbrot(GeneratorSettings settings)
         {
             Settings = settings;

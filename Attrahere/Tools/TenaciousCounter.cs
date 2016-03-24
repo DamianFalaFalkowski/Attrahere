@@ -47,8 +47,8 @@ namespace Attrahere.Tools
                 }
                 var za0 = za;
                 var zb0 = zb;
-                za = (za0 * za0) - (zb0 * zb0) + b;
-                zb = (2 * za0 * zb0 + a);
+                za = (za0 * za0) - (zb0 * zb0) + a;
+                zb = (2 * za0 * zb0 + b);
                 //double modz = (za * za) + Math.Sqrt((za * za) + (zb * zb));
                 double modz = (za * za) + (zb * zb);
                 if (modz * Radiusscale > 4)

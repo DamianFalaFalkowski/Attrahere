@@ -19,11 +19,11 @@
                 <TextBlock Text="Ilość Iteracji(int)"/>
                 <TextBox x:Name="Iter_TB" Text="20"/>
                 <TextBlock Text="Szerokość obrazu (px)(double)"/>
-                <TextBox x:Name="Width_TB" Text="1500"/>
+                <TextBox x:Name="Width_TB" Text="650"/>
                 <TextBlock Text="Wysokosć obrazu (px)(double)"/>
-                <TextBox x:Name="Height_TB" Text="1500"/>
-                <TextBlock Text="Mnożnik promienia - im wyższy tym łatwiej wyjść (double)"/>
-                <TextBox x:Name="RadiusMultiplayer_TB" Text="1"/>
+                <TextBox x:Name="Height_TB" Text="650"/>
+                <!--<TextBlock Text="Mnożnik promienia - im wyższy tym łatwiej wyjść (double)"/>
+                <TextBox x:Name="RadiusMultiplayer_TB" Text="1"/>-->
                 <TextBlock Text="Punkt(x) (double)" />
                 <TextBox x:Name="centerX_TB" Text="0"/>
                 <TextBlock Text="Punkt(y) (double)" />
@@ -32,12 +32,12 @@
             </StackPanel>
             <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="y:" Margin="0"/>
+                    <TextBlock Text="x:" Margin="0"/>
                     <TextBlock x:Name="coverx"/>
                 </StackPanel>
                 <Rectangle Height="5"/>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="x:" Margin="0"/>
+                    <TextBlock Text="y:" Margin="0"/>
                     <TextBlock x:Name="covery"/>
                 </StackPanel>
                 
