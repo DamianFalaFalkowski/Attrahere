@@ -20,6 +20,8 @@
                 <TextBox x:Name="Iter_TB" Text="20"/>
                 <TextBlock Text="Rozmiar obrazu (px)(double)"/>
                 <TextBox x:Name="Width_TB" Text="650"/>
+                <TextBlock Text="dpi"/>
+                <TextBox x:Name="DPI_TB" Text="100"/>
                 <!--<TextBlock Text="Wysokosć obrazu (px)(double)"/>
                 <TextBox x:Name="Height_TB" Text="650"/>-->
                 <!--<TextBlock Text="Mnożnik promienia - im wyższy tym łatwiej wyjść (double)"/>

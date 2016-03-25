@@ -36,17 +36,17 @@ namespace Attrahere
             Generate();
         }
 
-        private void InitBitmap(int width, int height, PixelFormat format)
+        private void InitBitmap(int width, int height, PixelFormat format, double dpi)
         {
             wBitmap = new WriteableBitmap(
-                width, height, 100, 100,
+                width, height, dpi, dpi,
                 format, null);
         }
 
         private void FractalImage_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Point cover = e.GetPosition(sender as FrameworkElement);
-            Point p = Mandel.GetRealisticPoint((int)cover.X, (int)(sender as FrameworkElement).Height - (int)cover.Y);
+            Point p = Mandel.GetRealisticPoint((int)cover.X, (int)(sender as FrameworkElement).Height - (int)cover.Y, Convert.ToDouble(DPI_TB.Text));
             centerX_TB.Text = p.X.ToString();
             centerY_TB.Text = p.Y.ToString();
         }
@@ -54,7 +54,7 @@ namespace Attrahere
         private void FractalImage_MouseMove(object sender, MouseEventArgs e)
         {
             Point cover = e.GetPosition(sender as FrameworkElement);
-            Point p = Mandel.GetRealisticPoint((int)cover.X, (int)(sender as FrameworkElement).Height - (int)cover.Y);
+            Point p = Mandel.GetRealisticPoint((int)cover.X, (int)(sender as FrameworkElement).Height - (int)cover.Y, Convert.ToDouble(DPI_TB.Text));
             covery.Text = p.Y.ToString();
             coverx.Text = p.X.ToString();
         }
@@ -88,7 +88,7 @@ namespace Attrahere
                 new GeneratorSettings(area, radius, iterCount, format, center);
 
             // zainitializuj bitmapę na którą fraktal będzie zapisywany
-            InitBitmap((int)GeneratorSettings.Area.Width, (int)GeneratorSettings.Area.Width, format);
+            InitBitmap((int)GeneratorSettings.Area.Width, (int)GeneratorSettings.Area.Width, format, Convert.ToDouble(DPI_TB.Text));
 
             // stwórz klasę mandelbrot na podstawie ustawień
             Mandel = new Mandelbrot(GeneratorSettings);

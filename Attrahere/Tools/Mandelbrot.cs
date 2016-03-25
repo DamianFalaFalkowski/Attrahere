@@ -115,6 +115,13 @@ namespace Attrahere.Tools
                             Draft.Sphere.ComplexStart.Y - ((Settings.Area.Height - pixelY) * Draft.OnePixelDistanceOnAxisY));
         }
 
+        public Point GetRealisticPoint(int pixelX, int pixelY, double dpi)
+        {
+            return new Point(
+                            Draft.Sphere.ComplexStart.X + (pixelX*dpi/100 * Draft.OnePixelDistanceOnAxisX),
+                            Draft.Sphere.ComplexStart.Y - ((Settings.Area.Height - pixelY*dpi/100) * Draft.OnePixelDistanceOnAxisY));
+        }
+
         /// <summary>
         /// generuje pełną tablicę bajtów dla fraktala z ustawień
         /// </summary>
