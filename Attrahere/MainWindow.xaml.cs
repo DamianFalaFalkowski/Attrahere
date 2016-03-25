@@ -33,6 +33,40 @@ namespace Attrahere
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Generate();
+        }
+
+        private void InitBitmap(int width, int height, PixelFormat format)
+        {
+            wBitmap = new WriteableBitmap(
+                width, height, 100, 100,
+                format, null);
+        }
+
+        private void FractalImage_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Point cover = e.GetPosition(sender as FrameworkElement);
+            Point p = Mandel.GetRealisticPoint((int)cover.X, (int)(sender as FrameworkElement).Height - (int)cover.Y);
+            centerX_TB.Text = p.X.ToString();
+            centerY_TB.Text = p.Y.ToString();
+        }
+
+        private void FractalImage_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point cover = e.GetPosition(sender as FrameworkElement);
+            Point p = Mandel.GetRealisticPoint((int)cover.X, (int)(sender as FrameworkElement).Height - (int)cover.Y);
+            covery.Text = p.Y.ToString();
+            coverx.Text = p.X.ToString();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Radius_TB.Text = (Convert.ToDouble(Radius_TB.Text) / 2).ToString();
+            Generate();
+        }
+
+        private void Generate()
+        {
             // promien na którym będzie rysowany fraktal
             double radius = Convert.ToDouble(Radius_TB.Text);
             // maksymalna ilość iteracji
@@ -70,31 +104,8 @@ namespace Attrahere
             // stwórz obraz z bitmapy i dodaj go do scroll viewera
             Image fractalImage = new Image() { Width = wBitmap.Width, Height = wBitmap.Height, Source = wBitmap };
             fractalImage.MouseMove += FractalImage_MouseMove;
-            fractalImage.MouseDown += FractalImage_MouseDown;         
+            fractalImage.MouseDown += FractalImage_MouseDown;
             sView.Content = fractalImage;
-        }
-
-        private void InitBitmap(int width, int height, PixelFormat format)
-        {
-            wBitmap = new WriteableBitmap(
-                width, height, 100, 100,
-                format, null);
-        }
-
-        private void FractalImage_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Point cover = e.GetPosition(sender as FrameworkElement);
-            Point p = Mandel.GetRealisticPoint((int)cover.X, (int)(sender as FrameworkElement).Height - (int)cover.Y);
-            centerX_TB.Text = p.X.ToString();
-            centerY_TB.Text = p.Y.ToString();
-        }
-
-        private void FractalImage_MouseMove(object sender, MouseEventArgs e)
-        {
-            Point cover = e.GetPosition(sender as FrameworkElement);
-            Point p = Mandel.GetRealisticPoint((int)cover.X, (int)(sender as FrameworkElement).Height - (int)cover.Y);
-            covery.Text = p.Y.ToString();
-            coverx.Text = p.X.ToString();
         }
     }
 }

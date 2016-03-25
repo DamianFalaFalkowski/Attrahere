@@ -12,10 +12,15 @@ namespace Attrahere.Tools
 {
     public class Mandelbrot
     {
+        /// <summary>
+        /// schemat fraktala
+        /// </summary>
         protected class WeirdDraft
         {
+            // buffor
             private int burrerIndex;
 
+            // obrazek zapisany w tablicy bajtów
             public byte[] ImageInBytes { get; private set; }
 
             private Mandelbrot Parent;
@@ -50,6 +55,10 @@ namespace Attrahere.Tools
                 this.burrerIndex = 0;
             }
 
+            /// <summary>
+            /// Dodawanie pojedynczego pixela do tablicy bitów
+            /// </summary>
+            /// <param name="color"></param>
             public void AddNewPixelToArray(Color color)
             {
                 ImageInBytes[this.burrerIndex] = color.R;
@@ -93,6 +102,12 @@ namespace Attrahere.Tools
             Magican = new ColoursMagican(new ColoursMagican.ColoursMagicanSettings());       
         }
 
+        /// <summary>
+        /// Pobiera rzeczywisty punkt na podstawie pixeli z osi x i y
+        /// </summary>
+        /// <param name="pixelX"></param>
+        /// <param name="pixelY"></param>
+        /// <returns></returns>
         public Point GetRealisticPoint(int pixelX,int pixelY)
         {
             return new Point(
@@ -100,6 +115,10 @@ namespace Attrahere.Tools
                             Draft.Sphere.ComplexStart.Y - ((Settings.Area.Height - pixelY) * Draft.OnePixelDistanceOnAxisY));
         }
 
+        /// <summary>
+        /// generuje pełną tablicę bajtów dla fraktala z ustawień
+        /// </summary>
+        /// <returns></returns>
         public byte[] GenerateArray()
         { 
             // iteruj po osi y          

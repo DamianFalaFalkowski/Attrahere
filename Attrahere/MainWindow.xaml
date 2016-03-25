@@ -29,6 +29,7 @@
                 <TextBlock Text="Punkt centralny(y) (double)" />
                 <TextBox x:Name="centerY_TB" Text="0"/>
                 <Button Content="Generuj" Click="Button_Click"/>
+                <Button Content="Zoom(x2)" Click="Button_Click_1"/>
             </StackPanel>
             <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                 <StackPanel Orientation="Horizontal">
