@@ -131,6 +131,25 @@ namespace Attrahere.Tools
             // iteruj po osi y          
             for (int i = (int)Settings.Area.Width-1; i >= 0; i--)
             {
+
+                //Parallel.For(0, (int)Settings.Area.Height,
+                //    x => {
+                //        Point actualXY = GetRealisticPoint(i, x);
+
+                //        // Oblicz stopień dążenia do przekroczenia promienia (wartości <0,1>)
+                //        var rate = Counter.CountPointGrowthSpeedRate(actualXY, Settings.MaxIterationCount);
+                //        if (rate > 1)
+                //        {
+                //            // jeśli stopień przekracza 1 to dodaj czarny pixel
+                //            Draft.AddNewPixelToArray(Colors.Black);
+                //        }
+                //        else
+                //        {
+                //            // jeśli stopień mieści się w przedziale, to dodaj obliczony kolor
+                //            Draft.AddNewPixelToArray(Magican.GetColor(rate));
+                //        }
+                //    });
+
                 // iteruj po osi x
                 for (int j = 0; j < (int)Settings.Area.Height; j++)
                 {
@@ -139,7 +158,7 @@ namespace Attrahere.Tools
 
                     // Oblicz stopień dążenia do przekroczenia promienia (wartości <0,1>)
                     var rate = Counter.CountPointGrowthSpeedRate(actualXY, Settings.MaxIterationCount);
-                    if (rate>1)
+                    if (rate > 1)
                     {
                         // jeśli stopień przekracza 1 to dodaj czarny pixel
                         Draft.AddNewPixelToArray(Colors.Black);
@@ -148,7 +167,7 @@ namespace Attrahere.Tools
                     {
                         // jeśli stopień mieści się w przedziale, to dodaj obliczony kolor
                         Draft.AddNewPixelToArray(Magican.GetColor(rate));
-                    }                  
+                    }
                 }
             }
             // zwróć tablicę bitów

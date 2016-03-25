@@ -22,14 +22,20 @@
                 <TextBox x:Name="Width_TB" Text="650"/>
                 <TextBlock Text="dpi"/>
                 <TextBox x:Name="DPI_TB" Text="100"/>
-                <!--<TextBlock Text="Wysokosć obrazu (px)(double)"/>
-                <TextBox x:Name="Height_TB" Text="650"/>-->
-                <!--<TextBlock Text="Mnożnik promienia - im wyższy tym łatwiej wyjść (double)"/>
-                <TextBox x:Name="RadiusMultiplayer_TB" Text="1"/>-->
                 <TextBlock Text="Punkt centralny(x) (double)" />
                 <TextBox x:Name="centerX_TB" Text="0"/>
                 <TextBlock Text="Punkt centralny(y) (double)" />
                 <TextBox x:Name="centerY_TB" Text="0"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="Button_Undo" Content="Cofnij" 
+                            Loaded="Button_Undo_Loaded" Click="Button_Undo_Click"/>
+                    <Button x:Name="Button_Redo" Grid.Column="1" Content="Przywróć" 
+                            Loaded="Button_Redo_Loaded" Click="Button_Redo_Click"/>
+                </Grid>
                 <Button Content="Generuj" Click="Button_Click"/>
                 <Button Content="Zoom(x2)" Click="Button_Click_1"/>
             </StackPanel>

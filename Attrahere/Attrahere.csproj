@@ -58,6 +58,7 @@
     <Compile Include="Model\GeneratorSettings.cs" />
     <Compile Include="Model\FractalSphere.cs" />
     <Compile Include="Tools\ColoursMagican.cs" />
+    <Compile Include="Tools\HistoryStack.cs" />
     <Compile Include="Tools\Mandelbrot.cs" />
     <Compile Include="Tools\TenaciousCounter.cs" />
     <Page Include="MainWindow.xaml">

@@ -22,18 +22,23 @@ namespace Attrahere
     /// </summary>
     public partial class MainWindow : Window
     {
+        private HistoryStack HistoryStack;
+
         private Mandelbrot Mandel;
 
         public static WriteableBitmap wBitmap;
 
+        //GeneratorSettings GeneratorSettings;
+
         public MainWindow()
         {
-            InitializeComponent();          
+            HistoryStack = new HistoryStack();
+            InitializeComponent();                     
         }    
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Generate();
+            Generate(false);
         }
 
         private void InitBitmap(int width, int height, PixelFormat format, double dpi)
@@ -62,10 +67,13 @@ namespace Attrahere
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             Radius_TB.Text = (Convert.ToDouble(Radius_TB.Text) / 2).ToString();
-            Generate();
+            Generate(false);
         }
 
-        private void Generate()
+        /// <summary>
+        /// Generuje fraktal z danych w textboxach
+        /// </summary>
+        private void Generate(bool previous)
         {
             // promien na którym będzie rysowany fraktal
             double radius = Convert.ToDouble(Radius_TB.Text);
@@ -83,9 +91,18 @@ namespace Attrahere
             // środek generowanej grafiki
             Point center = new Point(Convert.ToDouble(centerX_TB.Text), Convert.ToDouble(centerY_TB.Text));
 
-            // stwórz ustawienia generatora
             GeneratorSettings GeneratorSettings =
                 new GeneratorSettings(area, radius, iterCount, format, center);
+
+            if (!previous  && GeneratorSettings!=null)
+            {
+                HistoryStack.Push(GeneratorSettings);              
+            }
+            Button_Redo.IsEnabled = HistoryStack.IsNextAvalible;
+            Button_Undo.IsEnabled = HistoryStack.IsPreviousAvalible;
+
+            // stwórz ustawienia generatora
+
 
             // zainitializuj bitmapę na którą fraktal będzie zapisywany
             InitBitmap((int)GeneratorSettings.Area.Width, (int)GeneratorSettings.Area.Width, format, Convert.ToDouble(DPI_TB.Text));
@@ -106,6 +123,46 @@ namespace Attrahere
             fractalImage.MouseMove += FractalImage_MouseMove;
             fractalImage.MouseDown += FractalImage_MouseDown;
             sView.Content = fractalImage;
+        }
+
+        private void Button_Undo_Loaded(object sender, RoutedEventArgs e)
+        {         
+            (sender as Button).IsEnabled = HistoryStack.IsPreviousAvalible;           
+        }
+
+        private void Button_Redo_Loaded(object sender, RoutedEventArgs e)
+        {
+            (sender as Button).IsEnabled = HistoryStack.IsNextAvalible;
+        }
+
+        private void Button_Undo_Click(object sender, RoutedEventArgs e)
+        {
+            GeneratorSettings sett = HistoryStack.PopPrevious();
+            Radius_TB.Text = sett.Radius.ToString();
+            Iter_TB.Text = sett.MaxIterationCount.ToString();
+            Width_TB.Text = sett.Area.Width.ToString();
+            centerX_TB.Text = sett.Center.X.ToString();
+            centerY_TB.Text = sett.Center.Y.ToString();
+
+            Generate(true);
+
+            Button_Redo.IsEnabled = HistoryStack.IsNextAvalible;
+            Button_Undo.IsEnabled = HistoryStack.IsPreviousAvalible;
+        }
+
+        private void Button_Redo_Click(object sender, RoutedEventArgs e)
+        {
+            GeneratorSettings sett = HistoryStack.PopNext();
+            Radius_TB.Text = sett.Radius.ToString();
+            Iter_TB.Text = sett.MaxIterationCount.ToString();
+            Width_TB.Text = sett.Area.Width.ToString();
+            centerX_TB.Text = sett.Center.X.ToString();
+            centerY_TB.Text = sett.Center.Y.ToString();
+
+            Generate(false);
+
+            Button_Redo.IsEnabled = HistoryStack.IsNextAvalible;
+            Button_Undo.IsEnabled = HistoryStack.IsPreviousAvalible;
         }
     }
 }
