@@ -10,6 +10,9 @@ namespace Attrahere.Tools
 {
     public class TenaciousCounter
     {
+        private double _oneStepDistance = -1;
+        private double _delta = -1;
+
         /// <summary>
         /// Oblicz rzeczywistą odległość pomiędzy krańcami generowanego pola
         /// </summary>
@@ -17,20 +20,47 @@ namespace Attrahere.Tools
         /// <returns></returns>
         public double CountDelta(double Radius)
         {
-            return 2 * Radius;
+            if (_delta == -1)
+            {
+                _delta = 2 * Radius;
+            }
+            return _delta;
         }
-
+      
+        /// <summary>
+        /// oblicza odległóść jaką w rzeczywistosci ma jeden pixel
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <param name="ImageSize"></param>
+        /// <returns></returns>
         public double CountOneStepDistance(double radius, double ImageSize)        
         {
-            return (2 * radius) / ImageSize;
+            if (_oneStepDistance==-1)
+            {
+                _oneStepDistance = (2 * radius) / ImageSize;
+            }
+            return _oneStepDistance;
         }
 
+        /// <summary>
+        /// oblicza jak wiele pixeli potrzeba do wygenerowania obrazka o podanych rozmiarach dla konkretnego formatu
+        /// </summary>
+        /// <param name="PixelWidth"></param>
+        /// <param name="PixelHeight"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
         public int CountHowManyBytesINeed(int PixelWidth, int PixelHeight, PixelFormat format)
         {
             var step = PixelWidth * ((format.BitsPerPixel + 7) / 8);
             return step * PixelHeight;
         }
 
+        /// <summary>
+        /// oblicza stopień szybkości wypadania poza promień
+        /// </summary>
+        /// <param name="ComplexPoint"></param>
+        /// <param name="MaximumIterationCount"></param>
+        /// <returns></returns>
         public double CountPointGrowthSpeedRate(Point ComplexPoint, int MaximumIterationCount)
         {
             // częsc rzeczywista rozpatrywanego punktu
@@ -55,7 +85,6 @@ namespace Attrahere.Tools
                 var zb0 = zb;
                 za = (za0 * za0) - (zb0 * zb0) + a;
                 zb = (2 * za0 * zb0 + b);
-                //double modz = (za * za) + Math.Sqrt((za * za) + (zb * zb));
                 double modz = (za * za) + (zb * zb);
                 if (modz > 4)
                 {

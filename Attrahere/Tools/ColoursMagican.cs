@@ -35,97 +35,100 @@ namespace Attrahere.Tools
             byte r = 0;
             byte g = 0;
             byte b = 0;
-            if ((int)val / (int)255 == 2)
+
+            int countedvalue = (int)val / (int)255;
+
+            if (countedvalue == 0)
             {
                 b = (byte)(255 - 1/2*value);
                 g = (byte)(0 + 1 / 2 * value);
                 r = (byte)(0);
             }
-            else if ((int)val / (int)255 == 3)
+            else if (countedvalue == 1)
             {
                 b = (byte)(130 - 1 / 2 * value);
                 g = (byte)(120+1/2*value);
                 r = (byte)(0 + value);
             }
-            else if ((int)val / (int)255 == 0)
+            else if (countedvalue == 2)
             {
                 b = (byte)(0);
                 g = (byte)(255 - 1 / 2 * value);
                 r = (byte)(0 + val / 2);
             }
-            else if ((int)val / (int)255 == 1)
+            else if (countedvalue == 3)
             {
                 b = (byte)(0);
                 g = (byte)(130 - 1 / 2 * value);
                 r = (byte)(120 + val / 2);
             }
-            else if ((int)val / (int)255 == 6)
+            else if (countedvalue == 4)
             {
                 b = (byte)(130 - 1 / 2 * value);
                 g = (byte)(120 + 1 / 2 * value);
                 r = (byte)(0 + value);
             }
-            else if ((int)val / (int)255 == 7)
+            else if (countedvalue == 5)
             {
                 b = (byte)(0);
                 g = (byte)(255 - 1 / 2 * value);
                 r = (byte)(0 + val / 2);
             }
-            else if ((int)val / (int)255 == 4)
+            else if (countedvalue == 6)
             {
                 b = (byte)(0);
                 g = (byte)(130 - 1 / 2 * value);
                 r = (byte)(120 + val / 2);
             }
-            else if ((int)val / (int)255 == 5)
+            else if (countedvalue == 7)
             {
                 b = (byte)(0);
                 g = (byte)(130 - 1 / 2 * value);
                 r = (byte)(120 + val / 2);
             }
-            else if ((int)val / (int)255 == 10)
+            else if (countedvalue == 8)
             {
                 b = (byte)(130 - 1 / 2 * value);
                 g = (byte)(120 + 1 / 2 * value);
                 r = (byte)(0 + value);
             }
-            else if ((int)val / (int)255 == 11)
+            else if (countedvalue == 9)
             {
                 b = (byte)(0);
                 g = (byte)(255 - 1 / 2 * value);
                 r = (byte)(0 + val / 2);
             }
-            else if ((int)val / (int)255 == 8)
+            else if (countedvalue == 10)
             {
                 b = (byte)(0);
                 g = (byte)(130 - 1 / 2 * value);
                 r = (byte)(120 + val / 2);
             }
-            else if ((int)val / (int)255 == 9)
+            else if (countedvalue == 11)
             {
                 b = (byte)(0);
                 g = (byte)(130 - 1 / 2 * value);
                 r = (byte)(120 + val / 2);
             }
-            else if ((int)val / (int)255 == 14)
+            else if (countedvalue == 12)
             {
                 b = (byte)(130 - 1 / 2 * value);
                 g = (byte)(120 + 1 / 2 * value);
                 r = (byte)(0 + value);
             }
-            else if ((int)val / (int)255 == 15)
+            else if (countedvalue == 13)
             {
                 b = (byte)(0);
                 g = (byte)(255 - 1 / 2 * value);
                 r = (byte)(0 + val / 2);
             }
-            else if ((int)val / (int)255 == 12)
+            else if (countedvalue == 14)
             {
                 b = (byte)(0);
                 g = (byte)(130 - 1 / 2 * value);
                 r = (byte)(120 + val / 2);
             }
-            else if ((int)val / (int)255 == 13)
+            else if (countedvalue == 15)
             {
                 b = (byte)(0);
                 g = (byte)(130 - 1 / 2 * value);
