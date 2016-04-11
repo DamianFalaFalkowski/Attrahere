@@ -26,3 +26,7 @@ D:\Github-Repozytoria\Attrahere\Attrahere\obj\Release\MainWindow.baml
 D:\Github-Repozytoria\Attrahere\Attrahere\obj\Release\Attrahere.g.resources
 D:\Github-Repozytoria\Attrahere\Attrahere\obj\Release\Attrahere.Properties.Resources.resources
 D:\Github-Repozytoria\Attrahere\Attrahere\obj\Release\Attrahere.csproj.GenerateResource.Cache
+D:\Github-Repozytoria\Attrahere\Attrahere\bin\Release\Xceed.Wpf.Toolkit.dll
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Release\Controls\ColorPicker\ColorPicker.g.cs
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Release\GeneratedInternalTypeHelper.g.cs
+D:\Github-Repozytoria\Attrahere\Attrahere\obj\Release\Controls\ColorPicker\ColorPicker.baml

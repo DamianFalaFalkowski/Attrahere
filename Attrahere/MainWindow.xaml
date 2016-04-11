@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Attrahere"
+        xmlns:cp="clr-namespace:Attrahere.Controls.ColorPicker"
         mc:Ignorable="d"
         Title="Attrahere" Height="350" Width="525">
     <Grid>
@@ -38,6 +39,18 @@
                 </Grid>
                 <Button Content="Generuj" Click="Button_Click"/>
                 <Button Content="Zoom(x2)" Click="Button_Click_1"/>
+                <TextBlock Text="Colors"/>
+                <StackPanel x:Name="ColorsBox">
+                   
+                </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Click="Button_RemoveColor" Content="-" Margin="2"/>
+                    <Button Click="Button_AddColor" Content="+" Grid.Column="1" Margin="2"/>
+                </Grid>
             </StackPanel>
             <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                 <StackPanel Orientation="Horizontal">

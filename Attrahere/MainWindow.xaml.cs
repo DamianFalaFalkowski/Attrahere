@@ -1,4 +1,5 @@
-﻿using Attrahere.Model;
+﻿using Attrahere.Controls.ColorPicker;
+using Attrahere.Model;
 using Attrahere.Tools;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace Attrahere
     /// </summary>
     public partial class MainWindow : Window
     {
+
         private HistoryStack HistoryStack;
 
         private Mandelbrot Mandel;
@@ -32,8 +34,10 @@ namespace Attrahere
 
         public MainWindow()
         {
-            HistoryStack = new HistoryStack();
-            InitializeComponent();                     
+            HistoryStack = new HistoryStack();           
+            InitializeComponent();
+            ColorsBox.Children.Add(new ColorPicker(0,0,0));
+            ColorsBox.Children.Add(new ColorPicker(255,255,255));
         }    
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -93,6 +97,12 @@ namespace Attrahere
 
             GeneratorSettings GeneratorSettings =
                 new GeneratorSettings(area, radius, iterCount, format, center);
+
+            GeneratorSettings.ColorModifier = new ColorModifier(ColorsBox.Children.Count);
+            for (int i = 0; i < ColorsBox.Children.Count; i++)
+            {
+                GeneratorSettings.ColorModifier.Edit(i, (ColorsBox.Children[i] as ColorPicker).Color);
+            }           
 
             if (!previous  && GeneratorSettings!=null)
             {
@@ -163,6 +173,19 @@ namespace Attrahere
 
             Button_Redo.IsEnabled = HistoryStack.IsNextAvalible;
             Button_Undo.IsEnabled = HistoryStack.IsPreviousAvalible;
+        }
+
+        private void Button_RemoveColor(object sender, RoutedEventArgs e)
+        {
+            if (ColorsBox.Children.Count>2)
+            {
+                ColorsBox.Children.RemoveAt(ColorsBox.Children.Count - 1);
+            }
+        }
+
+        private void Button_AddColor(object sender, RoutedEventArgs e)
+        {
+            ColorsBox.Children.Add(new ColorPicker());
         }
     }
 }

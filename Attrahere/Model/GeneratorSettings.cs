@@ -21,6 +21,8 @@ namespace Attrahere.Model
 
         public int MaxIterationCount { get; set; }
 
+        public ColorModifier ColorModifier { get; set; }
+
         public GeneratorSettings(Rectangle area, double radius, 
             int iterationCount, PixelFormat pixelFormat, Point center)
         {
@@ -29,6 +31,20 @@ namespace Attrahere.Model
             this.MaxIterationCount = iterationCount;
             this.PixelFormat = pixelFormat;
             this.Center = center;
+        }
+
+        public void EditColor(int index, Color color)
+        {
+            ColorModifier.Edit(index, color);
+        }
+
+        public void InitColorTable(int size, List<Color> colors)
+        {
+            ColorModifier = new ColorModifier(size);
+            for (int i = 0; i < size; i++)
+            {
+                ColorModifier.Edit(i, colors[i]);
+            }
         }
     }   
 }

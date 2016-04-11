@@ -99,7 +99,7 @@ namespace Attrahere.Tools
             Settings = settings;
             Counter = new TenaciousCounter();
             Draft = new WeirdDraft(this);
-            Magican = new ColoursMagican(new ColoursMagican.ColoursMagicanSettings());       
+            Magican = new ColoursMagican(new ColoursMagican.ColoursMagicanSettings(settings.ColorModifier));       
         }
 
         /// <summary>

@@ -37,6 +37,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -49,18 +51,29 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>C:\Users\Damian\Downloads\Extended WPF Toolkit Binaries\Extended WPF Toolkit Binaries\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\ColorPicker\ColorPicker.xaml.cs">
+      <DependentUpon>ColorPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ColorModifier.cs" />
     <Compile Include="Model\GeneratorSettings.cs" />
     <Compile Include="Model\FractalSphere.cs" />
     <Compile Include="Tools\ColoursMagican.cs" />
     <Compile Include="Tools\HistoryStack.cs" />
     <Compile Include="Tools\Mandelbrot.cs" />
     <Compile Include="Tools\TenaciousCounter.cs" />
+    <Page Include="Controls\ColorPicker\ColorPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
