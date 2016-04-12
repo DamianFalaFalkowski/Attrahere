@@ -63,13 +63,24 @@
     <Compile Include="Controls\ColorPicker\ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ColorPicker\ColorPickerViewModel.cs" />
+    <Compile Include="Converters\BoolToVisibility.cs" />
+    <Compile Include="Tools\Shifting\Exeptions\WrongCommandRelayParamsCountExeption.cs" />
     <Compile Include="Model\ColorModifier.cs" />
     <Compile Include="Model\GeneratorSettings.cs" />
     <Compile Include="Model\FractalSphere.cs" />
     <Compile Include="Tools\ColoursMagican.cs" />
+    <Compile Include="Tools\Shifting\CommandRelay.cs" />
     <Compile Include="Tools\HistoryStack.cs" />
     <Compile Include="Tools\Mandelbrot.cs" />
+    <Compile Include="Tools\Shifting\CommandBase.cs" />
+    <Compile Include="Tools\Shifting\Interfaces\ICommand.cs" />
+    <Compile Include="Tools\Shifting\RelayParams.cs" />
     <Compile Include="Tools\TenaciousCounter.cs" />
+    <Compile Include="ViewModel\SettingsViewModel.cs" />
+    <Compile Include="View\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Controls\ColorPicker\ColorPicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -86,6 +97,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -115,8 +130,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewModel\" />
-    <Folder Include="View\" />
+    <Folder Include="Exeptions\" />
+    <Folder Include="Tools\Shifting\Tools\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

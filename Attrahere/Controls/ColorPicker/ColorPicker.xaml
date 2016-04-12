@@ -20,14 +20,14 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="R:"/>
-            <TextBox x:Name="tbR" Grid.Column="1" TextChanged="TextBox_TextChanged"/>
+            <TextBox x:Name="tbR" Grid.Column="1" Text="{Binding Path=R, Mode=TwoWay}"/>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="G:" Grid.Column="2"/>
-            <TextBox x:Name="tbG" Grid.Column="3" TextChanged="TextBox_TextChanged_1"/>
+            <TextBox x:Name="tbG" Grid.Column="3" Text="{Binding Path=G, Mode=TwoWay}"/>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="B:" Grid.Column="4"/>
-            <TextBox x:Name="tbB" Grid.Column="5" TextChanged="TextBox_TextChanged_2"/>
+            <TextBox x:Name="tbB" Grid.Column="5" Text="{Binding Path=B, Mode=TwoWay}"/>
         </Grid>
         <Grid Grid.Row="1">
-            <Canvas x:Name="canv" Grid.Row="1" Height="30"/>
+            <Canvas x:Name="canv" Grid.Row="1" Height="30" Background="{Binding Path=Color}"/>
             <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StrokeThickness="1" Stroke="Black"/>
         </Grid>
         

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Attrahere"
         xmlns:cp="clr-namespace:Attrahere.Controls.ColorPicker"
+        xmlns:v="clr-namespace:Attrahere.View"
         mc:Ignorable="d"
         Title="Attrahere" Height="350" Width="525">
     <Grid>
@@ -14,7 +15,8 @@
         </Grid.ColumnDefinitions>
 
         <Grid>
-            <StackPanel>
+            <v:SettingsView/>
+            <StackPanel Visibility="Collapsed">
                 <TextBlock Text="Promień(double)"/>
                 <TextBox x:Name="Radius_TB" Text="2"/>
                 <TextBlock Text="Ilość Iteracji(int)"/>
@@ -66,10 +68,10 @@
                 
             </StackPanel>
         </Grid>
+
+
+
         
-
-
-
 
 
 

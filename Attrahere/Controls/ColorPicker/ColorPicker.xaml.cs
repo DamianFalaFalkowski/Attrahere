@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,123 +21,49 @@ namespace Attrahere.Controls.ColorPicker
     /// </summary>
     public partial class ColorPicker : UserControl
     {
-     //   public static readonly DependencyProperty RProperty =
-     //DependencyProperty.Register("R", typeof(byte),
-     //typeof(ColorPicker), new FrameworkPropertyMetadata(0));
+        // properties
+        public byte R {
+            get { return VM.R; }
+            set { VM.R = value; } }
 
-     //   // .NET Property wrapper
-     //   public byte R
-     //   {
-     //       get { return (byte)GetValue(RProperty); }
-     //       set {
-     //           SetValue(RProperty, value);
-     //           Color = Color.FromArgb(255, Convert.ToByte(value), Color.G, Color.B);
-     //           canv.Background = new SolidColorBrush(Color);
-     //       }
-     //   }
+        public byte G {
+            get { return VM.G; }
+            set { VM.G = value; }
+        }
 
-        public Color Color { get; private set; }
+        public byte B {
+            get { return VM.B; }
+            set { VM.B = value; }
+        }
 
+        // privates
+        private ColorPickerViewModel VM;
+
+        // ctors
         public ColorPicker()
         {
-            Color = Color.FromArgb(255, 0, 0, 0);
-            InitializeComponent();
-            tbR.Text = "0";
-            tbG.Text = "0";
-            tbB.Text = "0";
+            DataContext = new ColorPickerViewModel();
+            init();
         }
-
         public ColorPicker(byte r, byte g, byte b)
         {
-            Color = Color.FromArgb(255, r, g, b);
+            DataContext = new ColorPickerViewModel(r,g,b);
+            init();
+        }
+        private void init()
+        {
+            VM = DataContext as ColorPickerViewModel;
             InitializeComponent();
-            tbR.Text = r.ToString();
-            tbG.Text = g.ToString();
-            tbB.Text = b.ToString();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        // methods
+        public Color GetColor()
         {
-            int n;
-            bool isNumeric = int.TryParse((sender as TextBox).Text, out n);
-            if (!isNumeric)
-            {
-                (sender as TextBox).TextChanged -= TextBox_TextChanged;
-                (sender as TextBox).Text = "Err";
-                (sender as TextBox).TextChanged += TextBox_TextChanged;
-            }
-            if (n > 255)
-            {
-                n = 255;
-                (sender as TextBox).TextChanged -= TextBox_TextChanged;
-                (sender as TextBox).Text = "255";
-                (sender as TextBox).TextChanged += TextBox_TextChanged;
-            }
-            if (n < 0)
-            {
-                n = 0;
-                (sender as TextBox).TextChanged -= TextBox_TextChanged;
-                (sender as TextBox).Text = "0";
-                (sender as TextBox).TextChanged += TextBox_TextChanged;
-            }
-            Color = Color.FromArgb(255, Convert.ToByte(n),Color.G, Color.B);
-            canv.Background = new SolidColorBrush(Color.FromArgb(Color.A, Color.B, Color.G, Color.R));
+            return GetSolidColorBrush().Color;
         }
-
-        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        public SolidColorBrush GetSolidColorBrush()
         {
-            int n;
-            bool isNumeric = int.TryParse((sender as TextBox).Text, out n);
-            if (!isNumeric)
-            {
-                (sender as TextBox).TextChanged -= TextBox_TextChanged_1;
-                (sender as TextBox).Text = "Err";
-                (sender as TextBox).TextChanged += TextBox_TextChanged_1;
-            }
-            if (n>255)
-            {
-                n = 255;
-                (sender as TextBox).TextChanged -= TextBox_TextChanged_1;
-                (sender as TextBox).Text = "255";
-                (sender as TextBox).TextChanged += TextBox_TextChanged_1;
-            }
-            if (n<0)
-            {
-                n = 0;
-                (sender as TextBox).TextChanged -= TextBox_TextChanged_1;
-                (sender as TextBox).Text = "0";
-                (sender as TextBox).TextChanged += TextBox_TextChanged_1;
-            }
-            Color = Color.FromArgb(255, Color.R, Convert.ToByte(n), Color.B);
-            canv.Background = new SolidColorBrush(Color.FromArgb(Color.A, Color.B, Color.G, Color.R));
-        }
-
-        private void TextBox_TextChanged_2(object sender, TextChangedEventArgs e)
-        {
-            int n;
-            bool isNumeric = int.TryParse((sender as TextBox).Text, out n);
-            if (!isNumeric)
-            {
-                (sender as TextBox).TextChanged -= TextBox_TextChanged_2;
-                (sender as TextBox).Text = "Err";
-                (sender as TextBox).TextChanged += TextBox_TextChanged_2;
-            }
-            if (n > 255)
-            {
-                n = 255;
-                (sender as TextBox).TextChanged -= TextBox_TextChanged_2;
-                (sender as TextBox).Text = "255";
-                (sender as TextBox).TextChanged += TextBox_TextChanged_2;
-            }
-            if (n < 0)
-            {
-                n = 0;
-                (sender as TextBox).TextChanged -= TextBox_TextChanged_2;
-                (sender as TextBox).Text = "0";
-                (sender as TextBox).TextChanged += TextBox_TextChanged_2;
-            }
-            Color = Color.FromArgb(255, Color.R, Color.G, Convert.ToByte(n));
-            canv.Background = new SolidColorBrush(Color.FromArgb(Color.A,Color.B,Color.G,Color.R));
+            return VM.Color;
         }
     }
 }

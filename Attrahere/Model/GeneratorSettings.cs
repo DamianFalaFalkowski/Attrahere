@@ -19,12 +19,12 @@ namespace Attrahere.Model
 
         public double Radius { get; set; }
 
-        public int MaxIterationCount { get; set; }
+        public uint MaxIterationCount { get; set; }
 
         public ColorModifier ColorModifier { get; set; }
 
         public GeneratorSettings(Rectangle area, double radius, 
-            int iterationCount, PixelFormat pixelFormat, Point center)
+            uint iterationCount, PixelFormat pixelFormat, Point center)
         {
             this.Area = area;
             this.Radius = radius;
