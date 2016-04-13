@@ -16,17 +16,17 @@ namespace Attrahere
     /// </summary>
     public partial class App : Application
     {
+        public static MainWindow MainWindow;
+
         public static Mandelbrot Mandel;
         public static HistoryStack HistoryStack;
         public static WriteableBitmap BitmapPainting;
-        public static ScrollViewer MainScrollViewer;
+        
+        
 
         public App()
         {
             HistoryStack = new HistoryStack();
-        
-            //ColorsBox.Children.Add(new ColorPicker(0, 0, 0));
-            //ColorsBox.Children.Add(new ColorPicker(255, 255, 255));
         }
 
         

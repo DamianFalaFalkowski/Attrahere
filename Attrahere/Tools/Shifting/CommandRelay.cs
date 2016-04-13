@@ -4,69 +4,55 @@ namespace Attrahere.Tools
 {
     public abstract partial class Shifting
     {
-        public class CommandRelay<T, R, E> : CommandBase
+        public class CommandRelay<T, R, E>
         {
             private readonly Action<T, R, E> _event;
-
-            public CommandRelay(Action<T, R, E> action):base(3)
+            public CommandRelay(Action<T, R, E> action)
             {
                 _event = action as Action<T, R, E>;
             }
-
             public void Execute(T p1, R p2, E p3)
             {
-                //this.Validate(p1);
-                //this.Validate(p2);
-                //this.Validate(p3);
                 this._event(p1, p2, p3);
             }
         }
 
-        public class CommandRelay<T, R> : CommandBase
+        public class CommandRelay<T, R> 
         {        
             private readonly Action<T, R> _event;
-
-            public CommandRelay(Action<T, R> action) : base(2)
+            public CommandRelay(Action<T, R> action)
             {
                 _event = action as Action<T, R>;
             }
-
             public void Execute(T p1, R p2)
             {
-                //this.Validate(p1);
-                //this.Validate(p2);
                 this._event(p1, p2);
             }
         }
 
-        public class CommandRelay<T> : CommandBase
+        public class CommandRelay<T>
         {
             private Action<T> _event;
-
-            public CommandRelay(Action<T> action) : base(1)
+            public CommandRelay(Action<T> action) 
             {        
                 _event = action;
-            }
-           
+            }          
             public void Execute(T t)
             {
-                //this.Validate(t);
                 _event((T)t);
             }
         }
 
-        public class CommandRelay : CommandBase
+        public class CommandRelay
         {
             private readonly Action _event;
 
-            public CommandRelay(Action action) : base(0)
+            public CommandRelay(Action action) 
             {
                 _event = action;
             }
-
             public void Execute()
             {
-                //this.Validate(p);
                 this._event();
             }
         }

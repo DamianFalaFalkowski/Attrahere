@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Attrahere"      
         xmlns:v="clr-namespace:Attrahere.View"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Loaded="Window_Loaded"
         Title="Attrahere" Height="350" Width="525">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -13,59 +13,13 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid>
-            <v:SettingsView DataContext="{Binding Path=SettingsViewModel}"/>
-            <!--<StackPanel Visibility="Collapsed">
-                <TextBlock Text="Promień(double)"/>
-                <TextBox x:Name="Radius_TB" Text="2"/>
-                <TextBlock Text="Ilość Iteracji(int)"/>
-                <TextBox x:Name="Iter_TB" Text="20"/>
-                <TextBlock Text="Rozmiar obrazu (px)(double)"/>
-                <TextBox x:Name="Width_TB" Text="650"/>
-                <TextBlock Text="dpi"/>
-                <TextBox x:Name="DPI_TB" Text="100"/>
-                <TextBlock Text="Punkt centralny(x) (double)" />
-                <TextBox x:Name="centerX_TB" Text="0"/>
-                <TextBlock Text="Punkt centralny(y) (double)" />
-                <TextBox x:Name="centerY_TB" Text="0"/>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Button x:Name="Button_Undo" Content="Cofnij" 
-                            Loaded="Button_Undo_Loaded" Click="Button_Undo_Click"/>
-                    <Button x:Name="Button_Redo" Grid.Column="1" Content="Przywróć" 
-                            Loaded="Button_Redo_Loaded" Click="Button_Redo_Click"/>
-                </Grid>
-                <Button Content="Generuj" Click="Button_Click"/>
-                <Button Content="Zoom(x2)" Click="Button_Click_1"/>
-                <TextBlock Text="Colors"/>
-                <StackPanel x:Name="ColorsBox">
-                   
-                </StackPanel>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Button Click="Button_RemoveColor" Content="-" Margin="2"/>
-                    <Button Click="Button_AddColor" Content="+" Grid.Column="1" Margin="2"/>
-                </Grid>
-            </StackPanel>-->
-        </Grid>
-
-
-
-
-
-
+        <v:SettingsView DataContext="{Binding Path=SettingsViewModel}"/>
 
         <ScrollViewer Grid.Column="1" 
                       HorizontalScrollBarVisibility="Visible" 
                       VerticalScrollBarVisibility="Visible"
-                      Loaded="ScrollViewer_Loaded">
-        </ScrollViewer>
-        
+                      Loaded="ScrollViewer_Loaded"
+                      Content="{Binding Path=MainScrollViewerContent}"/>
+
     </Grid>
 </Window>

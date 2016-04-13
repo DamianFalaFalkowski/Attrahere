@@ -163,12 +163,10 @@ namespace Attrahere.ViewModel
                 ColorsList.RemoveAt(ColorsList.Count - 1);
             }
         }
-
         private void AddColor()
         {
             ColorsList.Add(new ColorPickerViewModel(0, 0, 0));
         }
-
         private void Generate(bool previous)
         {
             Rectangle area = new Rectangle()
@@ -247,8 +245,6 @@ namespace Attrahere.ViewModel
             Point p = App.Mandel.GetRealisticPoint(
                 (int)cover.X, (int)(sender as FrameworkElement).Height - 
                 (int)cover.Y, Dpi);
-            //covery.Text = p.Y.ToString();
-            //coverx.Text = p.X.ToString();
         }
 
         // INotifyPropertyChanged implementation

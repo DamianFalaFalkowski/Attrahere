@@ -65,7 +65,7 @@
     </Compile>
     <Compile Include="Controls\ColorPicker\ColorPickerViewModel.cs" />
     <Compile Include="Converters\BoolToVisibility.cs" />
-    <Compile Include="Tools\Shifting\Exeptions\WrongCommandRelayParamsCountExeption.cs" />
+    <Compile Include="Exeptions\WrongCommandRelayParamsCountExeption.cs" />
     <Compile Include="Model\ColorModifier.cs" />
     <Compile Include="Model\GeneratorSettings.cs" />
     <Compile Include="Model\FractalSphere.cs" />
@@ -73,8 +73,6 @@
     <Compile Include="Tools\Shifting\CommandRelay.cs" />
     <Compile Include="Tools\HistoryStack.cs" />
     <Compile Include="Tools\Mandelbrot.cs" />
-    <Compile Include="Tools\Shifting\CommandBase.cs" />
-    <Compile Include="Tools\Shifting\RelayParams.cs" />
     <Compile Include="Tools\TenaciousCounter.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
@@ -129,9 +127,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Exeptions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
