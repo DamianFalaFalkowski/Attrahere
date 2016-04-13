@@ -25,10 +25,13 @@ namespace Attrahere.View
         private SettingsViewModel VM;
 
         public SettingsView()
-        {
-            DataContext = new SettingsViewModel();
-            VM = DataContext as SettingsViewModel;
+        {          
             InitializeComponent();
+        }
+
+        private void self_Loaded(object sender, RoutedEventArgs e)
+        {
+            VM = DataContext as SettingsViewModel;
         }
 
         private void Generate_Click(object sender, RoutedEventArgs e)
@@ -38,8 +41,7 @@ namespace Attrahere.View
 
         private void ZoomX2_Click(object sender, RoutedEventArgs e)
         {
-            VM.ZoomAndGenerateFractalCommand.
-                Execute(new Shifting.RelayParams(2));
+            VM.ZoomAndGenerateFractalCommand.Execute(2);
         }
 
         private void Button_Undo_Click(object sender, RoutedEventArgs e)
@@ -50,6 +52,16 @@ namespace Attrahere.View
         private void Button_Redo_Click(object sender, RoutedEventArgs e)
         {
             VM.RedoChangesCommand.Execute(null);
+        }       
+
+        private void Button_RemoveColor_Click(object sender, RoutedEventArgs e)
+        {
+            VM.RemoveColorCommand.Execute(null);
+        }
+
+        private void Button_AddColor_Click(object sender, RoutedEventArgs e)
+        {
+            VM.AddColorCommand.Execute(null);
         }
     }
 }

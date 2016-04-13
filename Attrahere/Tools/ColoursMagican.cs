@@ -29,35 +29,35 @@ namespace Attrahere.Tools
 
         public Color GetColor(double iterationRate)
         {
-            if (iterationRate==1)
+            if (iterationRate == 1)
             {
                 iterationRate = iterationRate - 0.000001;
             }
             int iloscKolorow = Settings.ColorModifier.ColorsTable.Count();
 
-            double dlugoscPrzedzialu = 1 / (double)(iloscKolorow-1);
+            double dlugoscPrzedzialu = 1 / (double)(iloscKolorow - 1);
 
             int przedzial = (int)Math.Floor(iterationRate / dlugoscPrzedzialu);
 
-            double Amin = (przedzial*dlugoscPrzedzialu) - (przedzial * dlugoscPrzedzialu);
+            double Amin = (przedzial * dlugoscPrzedzialu) - (przedzial * dlugoscPrzedzialu);
 
             double Amax = 1 - ((iloscKolorow - przedzial + 1) * dlugoscPrzedzialu);
 
             double procent = (iterationRate - Amin) / (iterationRate - Amax);
 
-            if (procent==0 && przedzial==0)
+            if (procent == 0 && przedzial == 0)
             {
                 return Color.FromArgb(255, 255, 255, 255);
             }
 
-            byte R = (byte)(Settings.ColorModifier.ColorsTable[przedzial+1].R +
-                ((Settings.ColorModifier.ColorsTable[przedzial+1].R - Settings.ColorModifier.ColorsTable[przedzial].R) * procent));
+            byte R = (byte)(Settings.ColorModifier.ColorsTable[przedzial + 1].R +
+                ((Settings.ColorModifier.ColorsTable[przedzial + 1].R - Settings.ColorModifier.ColorsTable[przedzial].R) * procent));
 
-            byte G = (byte)(Settings.ColorModifier.ColorsTable[przedzial+1].G +
-                ((Settings.ColorModifier.ColorsTable[przedzial+1].G - Settings.ColorModifier.ColorsTable[przedzial].G) * procent));
+            byte G = (byte)(Settings.ColorModifier.ColorsTable[przedzial + 1].G +
+                ((Settings.ColorModifier.ColorsTable[przedzial + 1].G - Settings.ColorModifier.ColorsTable[przedzial].G) * procent));
 
-            byte B = (byte)(Settings.ColorModifier.ColorsTable[przedzial+1].B +
-                ((Settings.ColorModifier.ColorsTable[przedzial+1].B - Settings.ColorModifier.ColorsTable[przedzial].B) * procent));
+            byte B = (byte)(Settings.ColorModifier.ColorsTable[przedzial + 1].B +
+                ((Settings.ColorModifier.ColorsTable[przedzial + 1].B - Settings.ColorModifier.ColorsTable[przedzial].B) * procent));
 
             return Color.FromArgb(255, R, G, B);
         }

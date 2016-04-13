@@ -1,6 +1,7 @@
 ﻿using Attrahere.Controls.ColorPicker;
 using Attrahere.Model;
 using Attrahere.Tools;
+using Attrahere.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,14 +24,24 @@ namespace Attrahere
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainWindowViewModel VM;
+
+        
+
         public MainWindow()
         {
-
+            DataContext = new MainWindowViewModel();
+            VM = DataContext as MainWindowViewModel;
             InitializeComponent();
 
             //HistoryStack = new HistoryStack();           
             //ColorsBox.Children.Add(new ColorPicker(0,0,0));
             //ColorsBox.Children.Add(new ColorPicker(255,255,255));
+        }
+
+        private void ScrollViewer_Loaded(object sender, RoutedEventArgs e)
+        {
+            App.MainScrollViewer = sender as ScrollViewer;
         }
 
 

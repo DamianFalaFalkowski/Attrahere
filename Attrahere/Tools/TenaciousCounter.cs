@@ -61,14 +61,14 @@ namespace Attrahere.Tools
         /// <param name="ComplexPoint"></param>
         /// <param name="MaximumIterationCount"></param>
         /// <returns></returns>
-        public double CountPointGrowthSpeedRate(Point ComplexPoint, int MaximumIterationCount)
+        public double CountPointGrowthSpeedRate(Point ComplexPoint, uint MaximumIterationCount)
         {
             // częsc rzeczywista rozpatrywanego punktu
             double a = ComplexPoint.X;
             // część urojona rozpatrywanego punktu
             double b = ComplexPoint.Y;
             // iolość iteracji do przejscia
-            int maxIndex = MaximumIterationCount;
+            uint maxIndex = MaximumIterationCount;
             // aktualny index
             int index = 0;
             // promień - czesc rzeczywista

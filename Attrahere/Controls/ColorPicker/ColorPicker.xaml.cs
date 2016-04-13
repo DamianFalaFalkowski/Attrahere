@@ -22,31 +22,70 @@ namespace Attrahere.Controls.ColorPicker
     public partial class ColorPicker : UserControl
     {
         // properties
-        public byte R {
-            get { return VM.R; }
-            set { VM.R = value; } }
-
-        public byte G {
-            get { return VM.G; }
-            set { VM.G = value; }
+        public static readonly DependencyProperty RProperty;
+        public byte R
+        {
+            get { return VM.R = (byte)GetValue(RProperty); }
+            set
+            {
+                VM.R = value;
+                SetValue(RProperty, value); 
+            }
         }
-
-        public byte B {
-            get { return VM.B; }
-            set { VM.B = value; }
+        public static readonly DependencyProperty GProperty;
+        public byte G
+        {
+            get { return VM.G = (byte)GetValue(GProperty); }
+            set
+            {
+                VM.G = value;
+                SetValue(GProperty, value); 
+            }
         }
+        public static readonly DependencyProperty BProperty;
+        public byte B
+        {
+            get { return VM.B = (byte)GetValue(BProperty); }
+            set
+            {
+                VM.B = value;
+                SetValue(BProperty, value);
+            }
+        }
+        //public byte R {
+        //    get { return VM.R; }
+        //    set { VM.R = value; } }
+
+        //public byte G {
+        //    get { return VM.G; }
+        //    set { VM.G = value; }
+        //}
+
+        //public byte B {
+        //    get { return VM.B; }
+        //    set { VM.B = value; }
+        //}
 
         // privates
         private ColorPickerViewModel VM;
 
         // ctors
-        public ColorPicker()
+        static ColorPicker()
         {
-            DataContext = new ColorPickerViewModel();
+            RProperty = DependencyProperty.Register("R",
+            typeof(byte), typeof(ColorPicker));
+            GProperty = DependencyProperty.Register("G",
+            typeof(byte), typeof(ColorPicker));
+            BProperty = DependencyProperty.Register("B",
+            typeof(byte), typeof(ColorPicker));
+        }
+
+        public ColorPicker()
+        {           
             init();
         }
         public ColorPicker(byte r, byte g, byte b)
-        {
+        {            
             DataContext = new ColorPickerViewModel(r,g,b);
             init();
         }
@@ -63,7 +102,7 @@ namespace Attrahere.Controls.ColorPicker
         }
         public SolidColorBrush GetSolidColorBrush()
         {
-            return VM.Color;
+            return VM.ColorBrush;
         }
     }
 }

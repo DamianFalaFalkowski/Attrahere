@@ -1,7 +1,9 @@
-﻿using Attrahere.Model;
+﻿using Attrahere.Controls.ColorPicker;
+using Attrahere.Model;
 using Attrahere.Tools;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -38,31 +40,30 @@ namespace Attrahere.ViewModel
         }
         public double ImageRealisticWidth {
             get { return _imageRealisticWidth; }
-            set { _imageRealisticWidth = value;
+            set { _imageRealisticHeight = value;
                 NotifyPropertyChanged("ImageRealisticWidth");
             }
         }
         public double Dpi { get { return _dpi; }
-            set {
-                double oldValue = _dpi;
-                _dpi = value;
-                ImageRealisticHeight = (_imageRealisticHeight * (oldValue / 100)) 
-                    / (_dpi / 100);
-                ImageRealisticWidth = (_imageRealisticWidth * (oldValue / 100)) 
-                    / (_dpi / 100);
-                NotifyPropertyChanged("Dpi");
-            }
+            set { _dpi = value; NotifyPropertyChanged("Dpi"); }
         }
         public double CenterAtXAxis {
             get { return _centerAtXAxis; }
-            set { _centerAtXAxis = value; NotifyPropertyChanged("CenterAtXAxis"); }
+            set { _centerAtXAxis = value;
+                NotifyPropertyChanged("CenterAtXAxis");
+                NotifyPropertyChanged("CenterAtYAxis");
+            }
         }
         public double CenterAtYAxis {
             get { return _centerAtYAxis; }
-            set { _centerAtYAxis = value; NotifyPropertyChanged("CenterAtYAxis"); }
+            set { _centerAtYAxis = value;
+                NotifyPropertyChanged("CenterAtXAxis");
+                NotifyPropertyChanged("CenterAtYAxis");
+            }
         }
         public bool IsUndoAvalible { get { return App.HistoryStack.IsPreviousAvalible; } }
         public bool IsRedoAvalible { get { return App.HistoryStack.IsNextAvalible; } }
+        public ObservableCollection<ColorPickerViewModel> ColorsList { get; private set; }
 
         // privates
         private double _radius { get; set; }
@@ -74,6 +75,7 @@ namespace Attrahere.ViewModel
         private double _dpi { get; set; }
         private double _centerAtXAxis { get; set; }
         private double _centerAtYAxis { get; set; }
+        private PixelFormat _pixelFormat { get; set; }
 
         // commands definitions
         public Shifting.CommandRelay GenerateFractalCommand;
@@ -81,6 +83,8 @@ namespace Attrahere.ViewModel
         public Shifting.CommandRelay<double, double> SetCenterPointCommand;
         public Shifting.CommandRelay UndoChangesCommand;
         public Shifting.CommandRelay RedoChangesCommand;
+        public Shifting.CommandRelay RemoveColorCommand;
+        public Shifting.CommandRelay AddColorCommand;
 
         //ctors
         public SettingsViewModel()
@@ -93,14 +97,20 @@ namespace Attrahere.ViewModel
                 new Shifting.CommandRelay<double, double>(SetCenterPoint);
             UndoChangesCommand = new Shifting.CommandRelay(UndoChanges);
             RedoChangesCommand = new Shifting.CommandRelay(RedoChanges);
+            RemoveColorCommand = new Shifting.CommandRelay(RemoveColor);
+            AddColorCommand = new Shifting.CommandRelay(AddColor);
 
+            ColorsList = new ObservableCollection<ColorPickerViewModel>() { };
+            ColorsList.Add(new ColorPickerViewModel(0, 0, 0));
+            ColorsList.Add(new ColorPickerViewModel(255, 255, 255));
             Radius = 2;
             MaximumIteration = 35;
             ImageRealisticHeight = 650;
-            ImageRealisticWidth = _imageRealisticHeight;
+            ImageRealisticWidth = ImageRealisticHeight;
             Dpi = 100;
             CenterAtXAxis = 0;
             CenterAtYAxis = 0;
+            _pixelFormat = PixelFormats.Bgr32;
         }
 
         // commands body
@@ -117,7 +127,6 @@ namespace Attrahere.ViewModel
             NotifyPropertyChanged("IsUndoAvalible");
             NotifyPropertyChanged("IsRedoAvalible");
         }
-
         void RedoChanges()
         {
             GeneratorSettings sett = App.HistoryStack.PopNext();
@@ -131,24 +140,31 @@ namespace Attrahere.ViewModel
             NotifyPropertyChanged("IsUndoAvalible");
             NotifyPropertyChanged("IsRedoAvalible");
         }
-
         void GenerateFractal()
         {
             Generate(false);
         }
-
         void ZoomAndGenerateFractal(double zoomLevel)
         {
             Radius = Radius / 2;
             Generate(false);
         }
-
         void SetCenterPoint(double x, double y)
         {
 
         }
 
         // summary methods
+        private void RemoveColor()
+        {
+
+        }
+
+        private void AddColor()
+        {
+
+        }
+
         private void Generate(bool previous)
         {
             Rectangle area = new Rectangle()
@@ -166,12 +182,11 @@ namespace Attrahere.ViewModel
             GeneratorSettings GeneratorSettings =
                 new GeneratorSettings(area, Radius, MaximumIteration, format, center);
 
-            // !!!!!!!!!!!!! KOLORY !!!!!!!
-            //GeneratorSettings.ColorModifier = new ColorModifier(ColorsBox.Children.Count);
-            //for (int i = 0; i < ColorsBox.Children.Count; i++)
-            //{
-            //    //GeneratorSettings.ColorModifier.Edit(i, (ColorsBox.Children[i] as ColorPicker).Color);
-            //}
+            GeneratorSettings.ColorModifier = new ColorModifier(ColorsList.Count);
+            for (int i = 0; i < ColorsList.Count; i++)
+            {
+                GeneratorSettings.ColorModifier.Edit(i, ColorsList[i].ColorBrush.Color);
+            }
 
             if (!previous && GeneratorSettings != null)
             {
@@ -184,8 +199,7 @@ namespace Attrahere.ViewModel
 
 
             // zainitializuj bitmapę na którą fraktal będzie zapisywany
-            InitBitmap((int)GeneratorSettings.Area.Width, 
-                (int)GeneratorSettings.Area.Width, format, Dpi);
+            InitBitmap();
 
             // stwórz klasę mandelbrot na podstawie ustawień
             App.Mandel = new Mandelbrot(GeneratorSettings);
@@ -194,26 +208,27 @@ namespace Attrahere.ViewModel
             byte[] arr = App.Mandel.GenerateArray();
 
             // zapisz tablicę bajtów do bitmapy
-            App.wBitmap.WritePixels(
-                new Int32Rect(0, 0, App.wBitmap.PixelWidth,
-                App.wBitmap.PixelHeight), arr, App.wBitmap.PixelWidth * 
-                ((App.wBitmap.Format.BitsPerPixel + 7) / 8), 0);
+            App.BitmapPainting.WritePixels(
+                new Int32Rect(0, 0, App.BitmapPainting.PixelWidth,
+                App.BitmapPainting.PixelHeight), arr, App.BitmapPainting.PixelWidth * 
+                ((App.BitmapPainting.Format.BitsPerPixel + 7) / 8), 0);
 
             // stwórz obraz z bitmapy i dodaj go do scroll viewera
-            Image fractalImage = new Image() { Width = App.wBitmap.Width,
-                Height = App.wBitmap.Height, Source = App.wBitmap };
+            Image fractalImage = new Image() { Width = App.BitmapPainting.Width,
+                Height = App.BitmapPainting.Height, Source = App.BitmapPainting
+            };
             fractalImage.MouseMove += FractalImage_MouseMove;
             fractalImage.MouseDown += FractalImage_MouseDown;
-            //sView.Content = fractalImage;
-        }
-        
-        private void InitBitmap(int width, int height, PixelFormat format, double dpi)
-        {
-            App.wBitmap = new WriteableBitmap(
-                width, height, dpi, dpi,
-                format, null);
-        }
 
+            App.MainScrollViewer.Content = fractalImage;
+        }     
+        private void InitBitmap()
+        {
+            App.BitmapPainting = new WriteableBitmap(
+                Convert.ToInt32(ImageRealisticHeight*(Dpi/100)), 
+                Convert.ToInt32(ImageRealisticHeight * (Dpi / 100)), 
+                Dpi, Dpi, _pixelFormat, null);
+        }
         private void FractalImage_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Point cover = e.GetPosition(sender as FrameworkElement);
@@ -223,7 +238,6 @@ namespace Attrahere.ViewModel
             CenterAtXAxis = p.X;
             CenterAtYAxis = p.Y;
         }
-
         private void FractalImage_MouseMove(object sender, MouseEventArgs e)
         {
             Point cover = e.GetPosition(sender as FrameworkElement);

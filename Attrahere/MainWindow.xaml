@@ -3,8 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Attrahere"
-        xmlns:cp="clr-namespace:Attrahere.Controls.ColorPicker"
+        xmlns:local="clr-namespace:Attrahere"      
         xmlns:v="clr-namespace:Attrahere.View"
         mc:Ignorable="d"
         Title="Attrahere" Height="350" Width="525">
@@ -15,8 +14,8 @@
         </Grid.ColumnDefinitions>
 
         <Grid>
-            <v:SettingsView/>
-            <StackPanel Visibility="Collapsed">
+            <v:SettingsView DataContext="{Binding Path=SettingsViewModel}"/>
+            <!--<StackPanel Visibility="Collapsed">
                 <TextBlock Text="Promień(double)"/>
                 <TextBox x:Name="Radius_TB" Text="2"/>
                 <TextBlock Text="Ilość Iteracji(int)"/>
@@ -53,29 +52,19 @@
                     <Button Click="Button_RemoveColor" Content="-" Margin="2"/>
                     <Button Click="Button_AddColor" Content="+" Grid.Column="1" Margin="2"/>
                 </Grid>
-            </StackPanel>
-            <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="x:" Margin="0"/>
-                    <TextBlock x:Name="coverx"/>
-                </StackPanel>
-                <Rectangle Height="5"/>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="y:" Margin="0"/>
-                    <TextBlock x:Name="covery"/>
-                </StackPanel>
-                
-                
-            </StackPanel>
+            </StackPanel>-->
         </Grid>
 
 
 
-        
 
 
 
-        <ScrollViewer Grid.Column="1" x:Name="sView" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+
+        <ScrollViewer Grid.Column="1" 
+                      HorizontalScrollBarVisibility="Visible" 
+                      VerticalScrollBarVisibility="Visible"
+                      Loaded="ScrollViewer_Loaded">
         </ScrollViewer>
         
     </Grid>

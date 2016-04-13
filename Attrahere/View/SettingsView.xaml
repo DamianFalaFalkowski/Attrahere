@@ -2,27 +2,27 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cp="clr-namespace:Attrahere.Controls.ColorPicker"
              xmlns:local="clr-namespace:Attrahere.View"
-             mc:Ignorable="d" x:Name="self">
+             mc:Ignorable="d" x:Name="self" Loaded="self_Loaded">
 
     <StackPanel HorizontalAlignment=
-                    "{Binding ElementName=self, Path=HorizontalAlignment}"
+                "{Binding ElementName=self, Path=HorizontalAlignment}"
                 VerticalAlignment=
-                    "{Binding ElementName=self, Path=VerticalAlignment}">
-        
+                "{Binding ElementName=self, Path=VerticalAlignment}">
         <TextBlock Text="Radius - double at (0,2]"/>
         <TextBox Text="{Binding Path=Radius, Mode=TwoWay}"/>
         <TextBlock Text="Max Iteration - uint at [1,inf]"/>
         <TextBox Text="{Binding Path=MaximumIteration, Mode=TwoWay}"/>
-        <TextBlock Text="Image size - double at (0,inf], height=width"/>
+        <TextBlock Text="Image size - double at (0,inf], h=w"/>
         <TextBox Text="{Binding Path=ImageRealisticHeight, Mode=TwoWay}"/>
         <TextBlock Text="dpi - double at (0,inf]"/>
-        <TextBox Text="{Binding Path=Radius, Mode=TwoWay}"/>
+        <TextBox Text="{Binding Path=Dpi, Mode=TwoWay}"/>
         <TextBlock Text="Center X - double at [-2,2]" />
         <TextBox Text="{Binding Path=CenterAtXAxis, Mode=TwoWay}"/>
         <TextBlock Text="Center Y - double at [-2,2]" />
-        <TextBox Text="{Binding Path=_centerAtYAxis, Mode=TwoWay}"/>
+        <TextBox Text="{Binding Path=CenterAtYAxis, Mode=TwoWay}"/>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -37,17 +37,30 @@
         </Grid>
         <Button Content="Generuj" Click="Generate_Click"/>
         <Button Content="Zoom(x2)" Click="ZoomX2_Click"/>
-        <!--<TextBlock Text="Colors"/>
-        <StackPanel x:Name="ColorsBox">
+        <TextBlock Text="Colors"/>
 
-        </StackPanel>-->
-        <!--<Grid>
+        <ListView ItemsSource="{Binding Path=ColorsList}" ClipToBounds="True" 
+                  Focusable="False" IsTextSearchEnabled="False" 
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                  HorizontalContentAlignment="Stretch" 
+                  ScrollViewer.CanContentScroll="False" 
+                  FontFamily="{Binding Mode=OneWay}" 
+                  FontSize="{Binding Mode=OneWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <cp:ColorPicker R="{Binding Path=R}" 
+                                    G="{Binding Path=G}" 
+                                    B="{Binding Path=B}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Click="Button_RemoveColor" Content="-" Margin="2"/>
-            <Button Click="Button_AddColor" Content="+" Grid.Column="1" Margin="2"/>
-        </Grid>-->
+            <Button Click="Button_RemoveColor_Click" Content="-"/>
+            <Button Click="Button_AddColor_Click" Content="+" Grid.Column="1"/>
+        </Grid>
     </StackPanel>
 </UserControl>

@@ -1,35 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace Attrahere.Controls.ColorPicker
 {
-    public class ColorPickerViewModel : INotifyPropertyChanged
+    public class ColorPickerViewModel : DependencyObject, INotifyPropertyChanged
     {
         // on view items
         public byte R
         {
             get { return _r; }
-            set { _r = value; NotifyPropertyChanged("Color"); NotifyPropertyChanged("R"); }
+            set { _r = value; NotifyPropertyChanged("ColorBrush"); NotifyPropertyChanged("R"); }
         }
         public byte G
         {
             get { return _g; }
-            set { _g = value; NotifyPropertyChanged("Color"); NotifyPropertyChanged("G"); }
+            set { _g = value; NotifyPropertyChanged("ColorBrush"); NotifyPropertyChanged("G"); }
         }
         public byte B
         {
             get { return _b; }
-            set { _b = value; NotifyPropertyChanged("Color"); NotifyPropertyChanged("B"); }
+            set { _b = value; NotifyPropertyChanged("ColorBrush"); NotifyPropertyChanged("B"); }
         }
-        public SolidColorBrush Color
+        public SolidColorBrush ColorBrush
         {
             get { return new SolidColorBrush(System.Windows.Media.Color.FromRgb(_r, _g, _b)); }
-        }
+        }        
 
         // privates
         private byte _r { get; set; }
