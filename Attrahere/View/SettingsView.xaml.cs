@@ -36,7 +36,7 @@ namespace Attrahere.View
 
         private void Generate_Click(object sender, RoutedEventArgs e)
         {
-            VM.GenerateFractalCommand.Execute(null);
+            VM.GenerateFractalCommand.Execute();
         }
 
         private void ZoomX2_Click(object sender, RoutedEventArgs e)
@@ -46,22 +46,22 @@ namespace Attrahere.View
 
         private void Button_Undo_Click(object sender, RoutedEventArgs e)
         {
-            VM.UndoChangesCommand.Execute(null);
+            VM.UndoChangesCommand.Execute();
         }
 
         private void Button_Redo_Click(object sender, RoutedEventArgs e)
         {
-            VM.RedoChangesCommand.Execute(null);
+            VM.RedoChangesCommand.Execute();
         }       
 
         private void Button_RemoveColor_Click(object sender, RoutedEventArgs e)
         {
-            VM.RemoveColorCommand.Execute(null);
+            VM.RemoveColorCommand.Execute();
         }
 
         private void Button_AddColor_Click(object sender, RoutedEventArgs e)
         {
-            VM.AddColorCommand.Execute(null);
+            VM.AddColorCommand.Execute();
         }
     }
 }

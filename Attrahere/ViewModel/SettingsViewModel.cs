@@ -151,18 +151,22 @@ namespace Attrahere.ViewModel
         }
         void SetCenterPoint(double x, double y)
         {
-
+            CenterAtXAxis = x;
+            CenterAtYAxis = y;
         }
 
         // summary methods
         private void RemoveColor()
         {
-
+            if (ColorsList.Count > 2)
+            {
+                ColorsList.RemoveAt(ColorsList.Count - 1);
+            }
         }
 
         private void AddColor()
         {
-
+            ColorsList.Add(new ColorPickerViewModel(0, 0, 0));
         }
 
         private void Generate(bool previous)
@@ -233,10 +237,9 @@ namespace Attrahere.ViewModel
         {
             Point cover = e.GetPosition(sender as FrameworkElement);
             Point p = App.Mandel.GetRealisticPoint(
-                (int)cover.X, (int)(sender as FrameworkElement).Height - 
+                (int)cover.X, (int)(sender as FrameworkElement).Height -
                 (int)cover.Y, Dpi);
-            CenterAtXAxis = p.X;
-            CenterAtYAxis = p.Y;
+            this.SetCenterPointCommand.Execute(p.X, p.Y);                       
         }
         private void FractalImage_MouseMove(object sender, MouseEventArgs e)
         {

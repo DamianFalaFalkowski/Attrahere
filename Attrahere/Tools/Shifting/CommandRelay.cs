@@ -64,9 +64,9 @@ namespace Attrahere.Tools
                 _event = action;
             }
 
-            public void Execute(RelayParams p)
+            public void Execute()
             {
-                this.Validate(p);
+                //this.Validate(p);
                 this._event();
             }
         }
