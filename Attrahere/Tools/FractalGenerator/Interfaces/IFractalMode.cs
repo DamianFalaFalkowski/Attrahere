@@ -13,7 +13,7 @@ namespace Attrahere.Tools.FractalGenerator
             double[,] RateTable { get; }
             bool RateTableAvalible { get; }
 
-            double[,] GenerateRateTable();
+            bool GenerateRateTable();
         }
     }
 }

@@ -70,6 +70,14 @@
     <Compile Include="Model\GeneratorSettings.cs" />
     <Compile Include="Model\FractalSphere.cs" />
     <Compile Include="Tools\ColoursMagican.cs" />
+    <Compile Include="Tools\FractalGenerator\FractalGenerator.cs" />
+    <Compile Include="Tools\FractalGenerator\Interfaces\IFractalMode.cs" />
+    <Compile Include="Tools\FractalGenerator\Metadata\ComplexBorders.cs" />
+    <Compile Include="Tools\FractalGenerator\Metadata\PointGrowthSpeedRate.cs" />
+    <Compile Include="Tools\FractalGenerator\Metadata\RealisticPixelSize.cs" />
+    <Compile Include="Tools\FractalGenerator\Metadata\RealisticPoint.cs" />
+    <Compile Include="Tools\FractalGenerator\Modes\Mandelbrot.cs" />
+    <Compile Include="Tools\FractalGenerator\Modes\ModeBase.cs" />
     <Compile Include="Tools\Shifting\CommandRelay.cs" />
     <Compile Include="Tools\HistoryStack.cs" />
     <Compile Include="Tools\Mandelbrot.cs" />

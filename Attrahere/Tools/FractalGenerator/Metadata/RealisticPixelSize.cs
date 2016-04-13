@@ -16,7 +16,7 @@ namespace Attrahere.Tools.FractalGenerator
                 private static double _lastImageSize = -1;
                 private static double _oneStepDistance = -1;
 
-                public static double GetRealisticPixelSize(int pixelX, int pixelY)
+                public static double GetRealisticPixelSize()
                 {
                     return CountOneStepDistance(FractalGenerator.Settings.Radius, FractalGenerator.Settings.Area.Width);
                 }

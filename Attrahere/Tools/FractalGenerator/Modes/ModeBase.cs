@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Attrahere.Tools.FractalGenerator.Modes
+namespace Attrahere.Tools.FractalGenerator
 {
     public partial class FractalGenerator
     {

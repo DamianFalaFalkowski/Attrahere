@@ -1,4 +1,5 @@
 ﻿using Attrahere.Tools;
+using Attrahere.Tools.FractalGenerator;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,8 +19,9 @@ namespace Attrahere.ViewModel
             private set { _mainScrollViewerContent = value; NotifyPropertyChanged("MainScrollViewerContent"); } }
 
         // privates
-        public SettingsViewModel _settingsViewModel { get; private set; }
-        public object _mainScrollViewerContent { get; private set; }
+        private FractalGenerator Generator { get; set; }
+        private SettingsViewModel _settingsViewModel { get; set; }
+        private object _mainScrollViewerContent { get; set; }
 
         // commands definitions
         public Shifting.CommandRelay<object> WiewLoadedCommand;
