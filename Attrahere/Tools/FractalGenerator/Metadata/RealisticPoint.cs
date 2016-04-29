@@ -17,7 +17,7 @@ namespace Attrahere.Tools.FractalGenerator
                 {                  
                     return new Point(
                            ComplexBorders.GetLeftTop().X + (pixelX * RealisticPixelSize.GetRealisticPixelSize()),
-                           ComplexBorders.GetLeftTop().Y - ((FractalGenerator.Settings.Area.Height - pixelY) * RealisticPixelSize.GetRealisticPixelSize()));
+                           ComplexBorders.GetLeftTop().Y - (pixelY * RealisticPixelSize.GetRealisticPixelSize()));
                 }
             }
         }
