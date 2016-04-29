@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Attrahere.Tools.FractalGenerator
 {
-    public partial class FractalGenerator
+    public static partial class FractalGenerator
     {
-        protected class ModeBase
+        public class ModeBase
         {
             public string Name { get; private set; }
 

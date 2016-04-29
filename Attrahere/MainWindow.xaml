@@ -8,16 +8,35 @@
         mc:Ignorable="d" Loaded="Window_Loaded"
         Title="Attrahere" Height="350" Width="525" WindowState="Maximized">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
-        <v:SettingsView DataContext="{Binding Path=SettingsViewModel}"/>
-
-        <ScrollViewer Grid.Column="1" 
-                      HorizontalScrollBarVisibility="Visible" 
-                      VerticalScrollBarVisibility="Visible"
-                      Content="{Binding Path=MainScrollViewerContent}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">                  
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer Grid.Column="0" 
+                          HorizontalScrollBarVisibility="Disabled" 
+                          VerticalScrollBarVisibility="Auto">
+                <v:SettingsView DataContext="{Binding Path=SettingsViewModel}"/>
+            </ScrollViewer>         
+            <ScrollViewer Grid.Column="1" 
+                          HorizontalScrollBarVisibility="Auto" 
+                          VerticalScrollBarVisibility="Auto"
+                          Content="{Binding Path=MainScrollViewerContent}"/>
+        </Grid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" DataContext="{Binding Path=SettingsViewModel}">
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Margin" Value="0,0,5,0"/>
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock Text="x:"/>
+            <TextBlock Text="{Binding Path=CoverX}"/>
+            <TextBlock Text="y:"/>
+            <TextBlock Text="{Binding Path=CoverY}"/>
+        </StackPanel>
     </Grid>
 </Window>

@@ -58,6 +58,24 @@ namespace Attrahere.ViewModel
                 NotifyPropertyChanged("CenterAtYAxis");
             }
         }
+        public double CoverX
+        {
+            get { return _coverX; }
+            set
+            {
+                _coverX = value;
+                NotifyPropertyChanged("CoverX");
+            }
+        }
+        public double CoverY
+        {
+            get { return _coverY; }
+            set
+            {
+                _coverY = value;
+                NotifyPropertyChanged("CoverY");
+            }
+        }
         public bool IsUndoAvalible { get { return App.HistoryStack.IsPreviousAvalible; } }
         public bool IsRedoAvalible { get { return App.HistoryStack.IsNextAvalible; } }
         public ObservableCollection<ColorPickerViewModel> ColorsList { get; private set; }
@@ -73,6 +91,8 @@ namespace Attrahere.ViewModel
         private double _centerAtXAxis { get; set; }
         private double _centerAtYAxis { get; set; }
         private PixelFormat _pixelFormat { get; set; }
+        private double _coverX { get; set; }
+        private double _coverY { get; set; }
 
         // commands definitions
         public Shifting.CommandRelay GenerateFractalCommand;
@@ -150,7 +170,7 @@ namespace Attrahere.ViewModel
         {
             CenterAtXAxis = x;
             CenterAtYAxis = y;
-        }
+        }      
 
         // summary methods
         private void RemoveColor()
@@ -230,10 +250,9 @@ namespace Attrahere.ViewModel
             //Point p = App.Mandel.GetRealisticPoint(
             //    (int)cover.X, (int)(sender as FrameworkElement).Height -
             //    (int)cover.Y, Dpi);
-            Point p = FractalGenerator.GetRealisticPoint((int)cover.X, (int)(sender as FrameworkElement).Height -
-                (int)cover.Y);
-            this.SetCenterPointCommand.Execute(p.X, -p.Y);
-            FractalGenerator.SetCenterPoint(p.X, -p.Y);
+            Point p = FractalGenerator.GetRealisticPoint((int)cover.X, (int)cover.Y);
+            this.SetCenterPointCommand.Execute(p.X, p.Y);
+            FractalGenerator.SetCenterPoint(p.X, p.Y);
         }
         private void FractalImage_MouseMove(object sender, MouseEventArgs e)
         {
@@ -241,6 +260,9 @@ namespace Attrahere.ViewModel
             //Point p = App.Mandel.GetRealisticPoint(
             //    (int)cover.X, (int)(sender as FrameworkElement).Height - 
             //    (int)cover.Y, Dpi);
+            Point p = FractalGenerator.GetRealisticPoint((int)cover.X, (int)cover.Y);
+            CoverX = p.X;
+            CoverY = p.Y;
         }
 
         // INotifyPropertyChanged implementation

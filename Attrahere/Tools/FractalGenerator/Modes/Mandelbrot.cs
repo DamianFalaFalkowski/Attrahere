@@ -8,9 +8,9 @@ using System.Windows;
 
 namespace Attrahere.Tools.FractalGenerator
 {
-    public partial class FractalGenerator
+    public static partial class FractalGenerator
     {
-        protected class Mandelbrot : ModeBase, IFractalMode
+        public class Mandelbrot : ModeBase, IFractalMode
         {
             public double[,] RateTable { get; private set; }
             public bool RateTableAvalible { get { return RateTable == null ? false : true; } }
