@@ -15,6 +15,8 @@ namespace Attrahere.Model
 
         public PixelFormat PixelFormat { get; set; }
 
+        public double Dpi { get; set; }
+
         public Rectangle Area { get; set; }
 
         public double Radius { get; set; }
@@ -23,11 +25,12 @@ namespace Attrahere.Model
 
         public ColorModifier ColorModifier { get; set; }
 
-        public GeneratorSettings(Rectangle area, double radius, 
+        public GeneratorSettings(Rectangle area, double radius, double dpi, 
             uint iterationCount, PixelFormat pixelFormat, Point center)
         {
             this.Area = area;
             this.Radius = radius;
+            this.Dpi = dpi;
             this.MaxIterationCount = iterationCount;
             this.PixelFormat = pixelFormat;
             this.Center = center;
@@ -37,7 +40,7 @@ namespace Attrahere.Model
         {
             ColorModifier.Edit(index, color);
         }
-
+                
         public void InitColorTable(int size, List<Color> colors)
         {
             ColorModifier = new ColorModifier(size);
@@ -46,5 +49,6 @@ namespace Attrahere.Model
                 ColorModifier.Edit(i, colors[i]);
             }
         }
+
     }   
 }

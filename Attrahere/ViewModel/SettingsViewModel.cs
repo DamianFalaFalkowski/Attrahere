@@ -1,13 +1,10 @@
 ﻿using Attrahere.Controls.ColorPicker;
 using Attrahere.Model;
 using Attrahere.Tools;
+using Attrahere.Tools.FractalGenerator;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -169,27 +166,23 @@ namespace Attrahere.ViewModel
         }
         private void Generate(bool previous)
         {
-            Rectangle area = new Rectangle()
-            {
-                // szerokość obszaru do narysowania
-                Width = Convert.ToInt32(ImageRealisticWidth*(Dpi/100)),
-                // wysokość obszaru do narysowania
-                Height = Convert.ToInt32(ImageRealisticWidth * (Dpi / 100))
-            };
-            // format zapisu kolorów
+            // przygotuj zmienne 
+            Rectangle area = new Rectangle() { Width = Convert.ToInt32(ImageRealisticWidth*(Dpi/100)), Height = Convert.ToInt32(ImageRealisticWidth * (Dpi / 100))};
             PixelFormat format = PixelFormats.Bgr32;
-            // środek generowanej grafiki
             Point center = new Point(CenterAtXAxis, CenterAtYAxis);
 
+            // stwórz z nich ustawienia
             GeneratorSettings GeneratorSettings =
-                new GeneratorSettings(area, Radius, MaximumIteration, format, center);
-
+                new GeneratorSettings(area, Radius,Dpi, MaximumIteration, format, center);
             GeneratorSettings.ColorModifier = new ColorModifier(ColorsList.Count);
+
+            // dodaj kolory
             for (int i = 0; i < ColorsList.Count; i++)
             {
                 GeneratorSettings.ColorModifier.Edit(i, ColorsList[i].ColorBrush.Color);
             }
 
+            // dodaj na stos stare ustawienia
             if (!previous && GeneratorSettings != null)
             {
                 App.HistoryStack.Push(GeneratorSettings);
@@ -197,24 +190,19 @@ namespace Attrahere.ViewModel
             NotifyPropertyChanged("IsUndoAvalible");
             NotifyPropertyChanged("IsRedoAvalible");
 
-            // stwórz ustawienia generatora
+            FractalGenerator.ChangeSettings(GeneratorSettings);
+            FractalGenerator.ChangeMode(FractalGenerator.GeneratorModes.MandelbrotSeries);
 
+            // wygeneruj tablię           
+            byte[] arr = FractalGenerator.Generate(GeneratorSettings);
 
-            // zainitializuj bitmapę na którą fraktal będzie zapisywany
-            InitBitmap();
-
-            // stwórz klasę mandelbrot na podstawie ustawień
-            App.Mandel = new Mandelbrot(GeneratorSettings);
-
-            // wygeneruj tablicę bajtów
-            byte[] arr = App.Mandel.GenerateArray();
-
+            // stworz bitmapę
+            App.BitmapPainting = new WriteableBitmap((int)area.Width, (int)area.Width, Dpi, Dpi, format, null);
             // zapisz tablicę bajtów do bitmapy
             App.BitmapPainting.WritePixels(
                 new Int32Rect(0, 0, App.BitmapPainting.PixelWidth,
                 App.BitmapPainting.PixelHeight), arr, App.BitmapPainting.PixelWidth * 
                 ((App.BitmapPainting.Format.BitsPerPixel + 7) / 8), 0);
-
             // stwórz obraz z bitmapy i dodaj go do scroll viewera
             Image fractalImage = new Image() { Width = App.BitmapPainting.Width,
                 Height = App.BitmapPainting.Height, Source = App.BitmapPainting
@@ -222,29 +210,37 @@ namespace Attrahere.ViewModel
             fractalImage.MouseMove += FractalImage_MouseMove;
             fractalImage.MouseDown += FractalImage_MouseDown;
 
-            App.MainScrollViewer.Content = fractalImage;
+            (App.MainWindow.DataContext as MainWindowViewModel).
+                SetMainScrollVieverContentCommand.Execute(fractalImage);
         }     
-        private void InitBitmap()
-        {
-            App.BitmapPainting = new WriteableBitmap(
-                Convert.ToInt32(ImageRealisticHeight*(Dpi/100)), 
-                Convert.ToInt32(ImageRealisticHeight * (Dpi / 100)), 
-                Dpi, Dpi, _pixelFormat, null);
-        }
+        //private void InitBitmap()
+        //{
+        //    var newSettings = FractalGenerator.Settings;
+        //    newSettings.Radius = FractalGenerator.Settings.Radius / 2;
+        //    var wb = FractalGenerator.Generate(newSettings);
+        //    App.BitmapPainting.WritePixels(
+        //        new Int32Rect(0, 0, App.BitmapPainting.PixelWidth,
+        //        App.BitmapPainting.PixelHeight), wb, App.BitmapPainting.PixelWidth *
+        //        ((App.BitmapPainting.Format.BitsPerPixel + 7) / 8), 0);
+        //}
+
         private void FractalImage_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Point cover = e.GetPosition(sender as FrameworkElement);
-            Point p = App.Mandel.GetRealisticPoint(
-                (int)cover.X, (int)(sender as FrameworkElement).Height -
-                (int)cover.Y, Dpi);
-            this.SetCenterPointCommand.Execute(p.X, p.Y);                       
+            //Point p = App.Mandel.GetRealisticPoint(
+            //    (int)cover.X, (int)(sender as FrameworkElement).Height -
+            //    (int)cover.Y, Dpi);
+            Point p = FractalGenerator.GetRealisticPoint((int)cover.X, (int)(sender as FrameworkElement).Height -
+                (int)cover.Y);
+            this.SetCenterPointCommand.Execute(p.X, -p.Y);
+            FractalGenerator.SetCenterPoint(p.X, -p.Y);
         }
         private void FractalImage_MouseMove(object sender, MouseEventArgs e)
         {
             Point cover = e.GetPosition(sender as FrameworkElement);
-            Point p = App.Mandel.GetRealisticPoint(
-                (int)cover.X, (int)(sender as FrameworkElement).Height - 
-                (int)cover.Y, Dpi);
+            //Point p = App.Mandel.GetRealisticPoint(
+            //    (int)cover.X, (int)(sender as FrameworkElement).Height - 
+            //    (int)cover.Y, Dpi);
         }
 
         // INotifyPropertyChanged implementation

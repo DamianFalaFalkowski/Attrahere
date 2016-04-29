@@ -46,7 +46,7 @@ namespace Attrahere.Tools.FractalGenerator
                         index++;
                     }
                 }
-            }
+            }         
         }
     }
 }

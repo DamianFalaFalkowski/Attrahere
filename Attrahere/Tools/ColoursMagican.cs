@@ -29,6 +29,10 @@ namespace Attrahere.Tools
 
         public Color GetColor(double iterationRate)
         {
+            if (iterationRate>1)
+            {
+                return Colors.Black;
+            }
             if (iterationRate == 1)
             {
                 iterationRate = iterationRate - 0.000001;

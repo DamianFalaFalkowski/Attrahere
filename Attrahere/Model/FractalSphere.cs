@@ -12,7 +12,7 @@ namespace Attrahere.Model
         public Point ComplexStart { get; private set; }
         public Point ComplexEnd { get; private set; }
         public double Radius { get; private set; }
-
+        
         /// <summary>
         /// to do
         /// </summary>

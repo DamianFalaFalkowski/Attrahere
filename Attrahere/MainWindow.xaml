@@ -1,4 +1,4 @@
-﻿<Window x:Class="Attrahere.MainWindow"
+﻿<Window x:Class="Attrahere.MainWindow" 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Attrahere"      
         xmlns:v="clr-namespace:Attrahere.View"
         mc:Ignorable="d" Loaded="Window_Loaded"
-        Title="Attrahere" Height="350" Width="525">
+        Title="Attrahere" Height="350" Width="525" WindowState="Maximized">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -18,8 +18,6 @@
         <ScrollViewer Grid.Column="1" 
                       HorizontalScrollBarVisibility="Visible" 
                       VerticalScrollBarVisibility="Visible"
-                      Loaded="ScrollViewer_Loaded"
                       Content="{Binding Path=MainScrollViewerContent}"/>
-
     </Grid>
 </Window>

@@ -1,12 +1,6 @@
 ﻿using Attrahere.Tools;
-using Attrahere.Tools.FractalGenerator;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace Attrahere.ViewModel
 {
@@ -18,21 +12,36 @@ namespace Attrahere.ViewModel
         public object MainScrollViewerContent { get { return _mainScrollViewerContent; }
             private set { _mainScrollViewerContent = value; NotifyPropertyChanged("MainScrollViewerContent"); } }
 
-        // privates
-        private FractalGenerator Generator { get; set; }
+        // privates        
         private SettingsViewModel _settingsViewModel { get; set; }
         private object _mainScrollViewerContent { get; set; }
 
         // commands definitions
         public Shifting.CommandRelay<object> WiewLoadedCommand;
+        public Shifting.CommandRelay<object> SetMainScrollVieverContentCommand;
+        public Shifting.CommandRelay<byte[]> RenderFractalCommand;
 
         // ctor
         public MainWindowViewModel()
-        {            
+        {
+            WiewLoadedCommand = new Shifting.CommandRelay<object>(WiewLoaded);
+            SetMainScrollVieverContentCommand = new Shifting.CommandRelay<object>(SetMainScrollVieverContent);
+            RenderFractalCommand = new Shifting.CommandRelay<byte[]>(RenderFractal);
+
             SettingsViewModel = new SettingsViewModel();
         }
 
         // commands body
+        void SetMainScrollVieverContent(object obj)
+        {
+            MainScrollViewerContent = obj;
+        }
+
+        void RenderFractal(byte[] bytes)
+        {
+
+        }
+
         void WiewLoaded(object sender)
         {
             App.MainWindow = sender as MainWindow;

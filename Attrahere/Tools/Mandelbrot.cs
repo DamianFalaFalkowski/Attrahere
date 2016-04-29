@@ -38,7 +38,9 @@ namespace Attrahere.Tools
             // odległość odpowiadająca jednemu pikselowi na wykresie dla osi
             public double OnePixelDistanceOnAxisX { get; private set; }
             public double OnePixelDistanceOnAxisY { get; private set; }
-           
+
+
+
             public WeirdDraft(Mandelbrot p)
             {
                 // ustaw rodzica
@@ -102,6 +104,8 @@ namespace Attrahere.Tools
             Magican = new ColoursMagican(new ColoursMagican.ColoursMagicanSettings(settings.ColorModifier));       
         }
 
+
+        // DONOT REMOVE THIS --------------------------------------------------------------
         /// <summary>
         /// Pobiera rzeczywisty punkt na podstawie pixeli z osi x i y
         /// </summary>
@@ -114,18 +118,19 @@ namespace Attrahere.Tools
                             Draft.Sphere.ComplexStart.X + (pixelX * Draft.OnePixelDistanceOnAxisX),
                             Draft.Sphere.ComplexStart.Y - ((Settings.Area.Height - pixelY) * Draft.OnePixelDistanceOnAxisY));
         }
-
         public Point GetRealisticPoint(int pixelX, int pixelY, double dpi)
         {
             return new Point(
                             Draft.Sphere.ComplexStart.X + (pixelX*dpi/100 * Draft.OnePixelDistanceOnAxisX),
                             Draft.Sphere.ComplexStart.Y - ((Settings.Area.Height - pixelY*dpi/100) * Draft.OnePixelDistanceOnAxisY));
         }
-
+        //-----------------------------------------------------------------
         /// <summary>
         /// generuje pełną tablicę bajtów dla fraktala z ustawień
         /// </summary>
         /// <returns></returns>
+
+
         public byte[] GenerateArray()
         { 
             // iteruj po osi y          

@@ -1,4 +1,5 @@
-﻿using Attrahere.Tools;
+﻿using Attrahere.Model;
+using Attrahere.Tools;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -26,6 +27,8 @@ namespace Attrahere
 
         public App()
         {
+            //var sett = new GeneratorSettings(MainWindow
+            //Mandel = new Mandelbrot();
             HistoryStack = new HistoryStack();
         }
 
