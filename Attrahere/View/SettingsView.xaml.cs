@@ -44,6 +44,21 @@ namespace Attrahere.View
             VM.ZoomAndGenerateFractalCommand.Execute(2);
         }
 
+        private void ZoomX4_Click(object sender, RoutedEventArgs e)
+        {
+            VM.ZoomAndGenerateFractalCommand.Execute(4);
+        }
+
+        private void ZoomX05_Click(object sender, RoutedEventArgs e)
+        {
+            VM.ZoomAndGenerateFractalCommand.Execute(0.5);
+        }
+
+        private void ZoomX025_Click(object sender, RoutedEventArgs e)
+        {
+            VM.ZoomAndGenerateFractalCommand.Execute(0.25);
+        }
+
         private void Button_Undo_Click(object sender, RoutedEventArgs e)
         {
             VM.UndoChangesCommand.Execute();
@@ -63,5 +78,7 @@ namespace Attrahere.View
         {
             VM.AddColorCommand.Execute();
         }
+
+        
     }
 }

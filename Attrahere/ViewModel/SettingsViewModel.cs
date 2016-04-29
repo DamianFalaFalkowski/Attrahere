@@ -163,9 +163,9 @@ namespace Attrahere.ViewModel
         }
         void ZoomAndGenerateFractal(double zoomLevel)
         {
-            Radius = Radius / 2;
+            Radius = Radius / zoomLevel;
             Generate(false);
-        }
+        }       
         void SetCenterPoint(double x, double y)
         {
             CenterAtXAxis = x;

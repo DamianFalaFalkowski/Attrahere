@@ -5,6 +5,6 @@
              xmlns:conv="clr-namespace:Attrahere.Converters"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <conv:BoolToVisibility x:Key="BoolToHiddenConverter"/>
+        <conv:BoolToVisibility x:Key="BoolToHiddenConverter"/>       
     </Application.Resources>
 </Application>

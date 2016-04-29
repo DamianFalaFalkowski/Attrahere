@@ -6,18 +6,22 @@
              xmlns:cp="clr-namespace:Attrahere.Controls.ColorPicker"
              xmlns:local="clr-namespace:Attrahere.View"
              mc:Ignorable="d" x:Name="self" Loaded="self_Loaded">
-
+    <UserControl.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0,0,0,5"/>
+        </Style>
+    </UserControl.Resources>
     <StackPanel HorizontalAlignment=
                 "{Binding ElementName=self, Path=HorizontalAlignment}"
                 VerticalAlignment=
                 "{Binding ElementName=self, Path=VerticalAlignment}">
         <TextBlock Text="Radius - double at (0,2]"/>
-        <TextBox Text="{Binding Path=Radius, Mode=TwoWay}"/>
+        <TextBox Text="{Binding Path=Radius, Mode=TwoWay}"/>              
         <TextBlock Text="Max Iteration - uint at [1,inf]"/>
         <TextBox Text="{Binding Path=MaximumIteration, Mode=TwoWay}"/>
-        <TextBlock Text="Image size - double at (0,inf], h=w"/>
+        <TextBlock Text="Image Size - double (0,inf]"/>
         <TextBox Text="{Binding Path=ImageRealisticHeight, Mode=TwoWay}"/>
-        <TextBlock Text="dpi - double at (0,inf]"/>
+        <TextBlock Text="DPI - double at (0,inf]"/>
         <TextBox Text="{Binding Path=Dpi, Mode=TwoWay}"/>
         <TextBlock Text="Center X - double at [-2,2]" />
         <TextBox Text="{Binding Path=CenterAtXAxis, Mode=TwoWay}"/>
@@ -35,17 +39,24 @@
                     IsEnabled="{Binding Path=IsRedoAvalible}"
                     Click="Button_Redo_Click"/>
         </Grid>
-        <Button Content="Generuj" Click="Generate_Click"/>
-        <Button Content="Zoom(x2)" Click="ZoomX2_Click"/>
-        <TextBlock Text="Colors"/>
 
+        <Button Content="Zoom(x0.25)" Click="ZoomX025_Click" Background="#FFAFD7EA"/>
+        <Button Content="Zoom(x0.5)" Click="ZoomX05_Click" Background="#FFAFD7EA"/>
+        <Button Content="Zoom(x2)" Click="ZoomX2_Click" Background="#FFFB9E8A"/>
+        <Button Content="Zoom(x4)" Click="ZoomX4_Click" Background="#FFFB9E8A"/>
+        <Button Content="Generate" Click="Generate_Click" Background="#FF78DA9C" />    
+
+        <Rectangle Height="20" HorizontalAlignment="Stretch"/>
+        
+        <TextBlock Text="Colors:"/>
         <ListView ItemsSource="{Binding Path=ColorsList}" ClipToBounds="True" 
                   Focusable="False" IsTextSearchEnabled="False" 
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                   HorizontalContentAlignment="Stretch" 
                   ScrollViewer.CanContentScroll="False" 
                   FontFamily="{Binding Mode=OneWay}" 
-                  FontSize="{Binding Mode=OneWay}">
+                  FontSize="{Binding Mode=OneWay}"
+                  Background="{DynamicResource {x:Static SystemColors.MenuBrushKey}}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <cp:ColorPicker R="{Binding Path=R}" 
@@ -62,5 +73,13 @@
             <Button Click="Button_RemoveColor_Click" Content="-"/>
             <Button Click="Button_AddColor_Click" Content="+" Grid.Column="1"/>
         </Grid>
+
+        <Rectangle Height="20" HorizontalAlignment="Stretch"/>
+
+        <Button Content="Start Possition"/>
+        <CheckBox Content="Show Actual center"/>
+
+        <Rectangle Height="20" HorizontalAlignment="Stretch"/>
+        
     </StackPanel>
 </UserControl>

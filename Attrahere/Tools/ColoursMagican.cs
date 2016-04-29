@@ -67,7 +67,7 @@ namespace Attrahere.Tools
             byte B = (byte)(Settings.ColorModifier.ColorsTable[przedzial].B -
                 ((Settings.ColorModifier.ColorsTable[przedzial].B - Settings.ColorModifier.ColorsTable[przedzial + 1].B) * procent));
 
-            // nie wiem czemu zamienia kolory, dlatego tutaj daję odwrotnie, niż teoretycznei być powinno
+            // nie wiem czemu zamienia kolory, dlatego tutaj daję odwrotnie niż teoretycznei być powinno
             return Color.FromRgb(B, G, R);
         }
     }

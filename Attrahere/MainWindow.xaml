@@ -6,15 +6,35 @@
         xmlns:local="clr-namespace:Attrahere"      
         xmlns:v="clr-namespace:Attrahere.View"
         mc:Ignorable="d" Loaded="Window_Loaded"
-        Title="Attrahere" Height="350" Width="525" WindowState="Maximized">
-    <Grid>
+        Title="Attrahere" Height="700" Width="1000" 
+        BorderBrush="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" UseLayoutRounding="False">
+    
+    <Grid Background="{DynamicResource {x:Static SystemColors.MenuBrushKey}}">        
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">                  
+        <DockPanel>
+            <Menu DockPanel.Dock="Top" Background="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}">
+                <MenuItem Header="_File" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}">
+                    <MenuItem Header="_Open"/>
+                    <MenuItem Header="_Save"/>
+                </MenuItem>
+                <MenuItem Header="_Export" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}">
+                    <MenuItem Header="_...to .jpg"/>
+                    <MenuItem Header="_...to .png"/>
+                    <MenuItem Header="_Set destination location"/>
+                </MenuItem>
+                <MenuItem Header="_Info" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}">
+                    <MenuItem Header="_How it works?"/>
+                </MenuItem>
+            </Menu>
+            <StackPanel></StackPanel>
+        </DockPanel>
+        <Grid Grid.Row="1">                  
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="230"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <ScrollViewer Grid.Column="0" 
@@ -25,18 +45,47 @@
             <ScrollViewer Grid.Column="1" 
                           HorizontalScrollBarVisibility="Auto" 
                           VerticalScrollBarVisibility="Auto"
-                          Content="{Binding Path=MainScrollViewerContent}"/>
+                          Content="{Binding Path=MainScrollViewerContent}" Background="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}"/>
         </Grid>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" DataContext="{Binding Path=SettingsViewModel}">
-            <StackPanel.Resources>
+        <Grid Grid.Row="2">
+            <Grid.Resources>
                 <Style TargetType="TextBlock">
-                    <Setter Property="Margin" Value="0,0,5,0"/>
+                    <Setter Property="Margin" Value="2,1"/>
                 </Style>
-            </StackPanel.Resources>
-            <TextBlock Text="x:"/>
-            <TextBlock Text="{Binding Path=CoverX}"/>
-            <TextBlock Text="y:"/>
-            <TextBlock Text="{Binding Path=CoverY}"/>
-        </StackPanel>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="290"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Height="1" Fill="DarkGray" Grid.ColumnSpan="20" VerticalAlignment="Top"/>
+            <StackPanel Orientation="Horizontal" DataContext="{Binding Path=SettingsViewModel}">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Margin" Value="0,0,5,0"/>
+                    </Style>
+                </StackPanel.Resources>
+                <TextBlock Text="x:"/>
+                <TextBlock Text="{Binding Path=CoverX}"/>
+                <TextBlock Text="y:"/>
+                <TextBlock Text="{Binding Path=CoverY}"/>
+            </StackPanel>
+            <Rectangle Width="1" VerticalAlignment="Stretch" HorizontalAlignment="Right" Fill="LightGray"/>
+            
+            <Grid Grid.Column="1" Margin="2">
+                <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="#FF2DD42D"/>
+                <TextBlock Text="Status OK" FontSize="8" VerticalAlignment="Center"/>
+            </Grid>
+            
+            <Rectangle Grid.Column="1" Width="1" VerticalAlignment="Stretch" HorizontalAlignment="Right" Fill="LightGray"/>
+            <Rectangle Grid.Column="3" Width="1" VerticalAlignment="Stretch" HorizontalAlignment="Left" Fill="LightGray"/>
+            <StackPanel Grid.Column="3" Orientation="Horizontal" DataContext="{Binding Path=SettingsViewModel}">           
+                <TextBlock Text="File:"/>
+                <TextBlock Text="file do not exist"/>
+            </StackPanel>
+        </Grid>
+        
+
     </Grid>
 </Window>
