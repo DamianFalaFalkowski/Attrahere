@@ -76,8 +76,8 @@
 
         <Rectangle Height="20" HorizontalAlignment="Stretch"/>
 
-        <Button Content="Start Possition"/>
-        <CheckBox Content="Show Actual center"/>
+        <Button Content="Start Possition" IsEnabled="False"/>
+        <CheckBox Content="Show Actual center" IsEnabled="False"/>
 
         <Rectangle Height="20" HorizontalAlignment="Stretch"/>
         

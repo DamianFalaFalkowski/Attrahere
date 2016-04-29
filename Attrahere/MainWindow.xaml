@@ -18,16 +18,16 @@
         <DockPanel>
             <Menu DockPanel.Dock="Top" Background="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}">
                 <MenuItem Header="_File" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}">
-                    <MenuItem Header="_Open"/>
-                    <MenuItem Header="_Save"/>
+                    <MenuItem Header="_Open" IsEnabled="False"/>
+                    <MenuItem Header="_Save" IsEnabled="False"/>
                 </MenuItem>
                 <MenuItem Header="_Export" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}">
-                    <MenuItem Header="_...to .jpg"/>
-                    <MenuItem Header="_...to .png"/>
-                    <MenuItem Header="_Set destination location"/>
+                    <MenuItem Header="_...to .jpg" IsEnabled="False"/>
+                    <MenuItem Header="_...to .png" IsEnabled="False"/>
+                    <MenuItem Header="_Set destination location" IsEnabled="False"/>
                 </MenuItem>
                 <MenuItem Header="_Info" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}">
-                    <MenuItem Header="_How it works?"/>
+                    <MenuItem Header="_How it works?" IsEnabled="False"/>
                 </MenuItem>
             </Menu>
             <StackPanel></StackPanel>
