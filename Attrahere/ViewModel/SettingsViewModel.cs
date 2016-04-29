@@ -199,7 +199,7 @@ namespace Attrahere.ViewModel
             // dodaj kolory
             for (int i = 0; i < ColorsList.Count; i++)
             {
-                GeneratorSettings.ColorModifier.Edit(i, ColorsList[i].ColorBrush.Color);
+                GeneratorSettings.ColorModifier.Edit(i, Color.FromRgb(ColorsList[i].R, ColorsList[i].G, ColorsList[i].B));
             }
 
             // dodaj na stos stare ustawienia

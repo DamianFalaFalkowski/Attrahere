@@ -80,7 +80,7 @@
     <Compile Include="Tools\FractalGenerator\Modes\ModeBase.cs" />
     <Compile Include="Tools\Shifting\CommandRelay.cs" />
     <Compile Include="Tools\HistoryStack.cs" />
-    <Compile Include="Tools\Mandelbrot.cs" />
+    <Compile Include="Tools\Mandelbrot%28not in use%29.cs" />
     <Compile Include="Tools\TenaciousCounter.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />

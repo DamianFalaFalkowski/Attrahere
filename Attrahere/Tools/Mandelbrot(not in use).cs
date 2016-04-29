@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
-namespace Attrahere.Tools
+namespace Attrahere.Tools.not_used
 {
+    // ta kalsa jest nie używana
     public class Mandelbrot
     {
         /// <summary>

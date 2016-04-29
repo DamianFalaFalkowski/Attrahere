@@ -23,32 +23,37 @@ namespace Attrahere.Tools.FractalGenerator
 
                 public static Point GetLeftTop()
                 {
-                    if ((_lastRadius != FractalGenerator.Settings.Radius &&
+                    double realisticRadius = (FractalGenerator.Settings.Area.Width / 2) * Metadata.RealisticPixelSize.GetRealisticPixelSize();
+                    // FractalGenerator.Settings.Radius
+                    if ((_lastRadius != realisticRadius &&
                         _lastRealisticCentre.X != FractalGenerator.Settings.Center.X &&
                         _lastRealisticCentre.Y != FractalGenerator.Settings.Center.Y) || 
                         (_lastRadius==-1 && _lastRealisticCentre.X==-123 && 
                         _lastRealisticCentre.Y==-321))
                     {
-                        LeftTop = new Point(FractalGenerator.Settings.Center.X - FractalGenerator.Settings.Radius,
-                            FractalGenerator.Settings.Center.Y + FractalGenerator.Settings.Radius);
-                        RightBottom = new Point(FractalGenerator.Settings.Center.X + FractalGenerator.Settings.Radius,
-                            FractalGenerator.Settings.Center.Y - FractalGenerator.Settings.Radius);
+                        LeftTop = new Point(FractalGenerator.Settings.Center.X - realisticRadius,
+                            FractalGenerator.Settings.Center.Y + realisticRadius);
+                        RightBottom = new Point(FractalGenerator.Settings.Center.X + realisticRadius,
+                            FractalGenerator.Settings.Center.Y - realisticRadius);
                     }
                     return LeftTop;                 
                 }
 
                 public static Point GetRightBottom()
                 {
-                    if ((_lastRadius != FractalGenerator.Settings.Radius &&
+                    double realisticRadius = (FractalGenerator.Settings.Area.Width / 2) * Metadata.RealisticPixelSize.GetRealisticPixelSize();
+                    // FractalGenerator.Settings.Radius
+
+                    if ((_lastRadius != realisticRadius &&
                         _lastRealisticCentre.X != FractalGenerator.Settings.Center.X &&
                         _lastRealisticCentre.Y != FractalGenerator.Settings.Center.Y) ||
                         (_lastRadius == -1 && _lastRealisticCentre.X == -123 &&
                         _lastRealisticCentre.Y == -321))
                     {
-                        LeftTop = new Point(FractalGenerator.Settings.Center.X - FractalGenerator.Settings.Radius,
-                            FractalGenerator.Settings.Center.Y + FractalGenerator.Settings.Radius);
-                        RightBottom = new Point(FractalGenerator.Settings.Center.X + FractalGenerator.Settings.Radius,
-                            FractalGenerator.Settings.Center.Y - FractalGenerator.Settings.Radius);
+                        LeftTop = new Point(FractalGenerator.Settings.Center.X - realisticRadius,
+                            FractalGenerator.Settings.Center.Y + realisticRadius);
+                        RightBottom = new Point(FractalGenerator.Settings.Center.X + realisticRadius,
+                            FractalGenerator.Settings.Center.Y - realisticRadius);
                     }
                     return RightBottom;
                 }

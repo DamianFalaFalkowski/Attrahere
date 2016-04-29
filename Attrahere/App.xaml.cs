@@ -19,7 +19,7 @@ namespace Attrahere
     {
         public static MainWindow MainWindow;
 
-        public static Mandelbrot Mandel;
+        //public static Mandelbrot Mandel;
         public static HistoryStack HistoryStack;
         public static WriteableBitmap BitmapPainting;
         
