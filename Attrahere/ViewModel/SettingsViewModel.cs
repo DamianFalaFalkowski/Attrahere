@@ -165,7 +165,7 @@ namespace Attrahere.ViewModel
         }
         void ZoomAndGenerateFractal(double zoomLevel)
         {
-            Radius = Radius / zoomLevel;
+            //Radius = Radius / zoomLevel;
             Generate(false);
         }       
         void SetCenterPoint(double x, double y)
@@ -243,9 +243,11 @@ namespace Attrahere.ViewModel
             PixelFormat format = PixelFormats.Bgr32;
             Point center = new Point(CenterAtXAxis, CenterAtYAxis);
 
-            for (int j = 0; j < 30; j++)
+            MaximumIteration = MaximumIteration + 1;
+            for (int j = 0; j < 5; j++)
             {
                 Radius = Radius * 0.95;
+                
                 // stwórz z nich ustawienia
                 GeneratorSettings GeneratorSettings =
                     new GeneratorSettings(area, Radius, Dpi, MaximumIteration, format, center);
