@@ -243,11 +243,16 @@ namespace Attrahere.ViewModel
             PixelFormat format = PixelFormats.Bgr32;
             Point center = new Point(CenterAtXAxis, CenterAtYAxis);
 
-            MaximumIteration = MaximumIteration + 1;
-            for (int j = 0; j < 5; j++)
+            int iteration = 0;
+            for (int j = 0; j < 50; j++)
             {
-                Radius = Radius * 0.95;
-                
+                iteration+=1;
+                if (iteration==3)
+                {
+                    MaximumIteration = MaximumIteration + 1;
+                    iteration = 0;
+                }
+                Radius = Radius * 0.975;
                 // stwórz z nich ustawienia
                 GeneratorSettings GeneratorSettings =
                     new GeneratorSettings(area, Radius, Dpi, MaximumIteration, format, center);
