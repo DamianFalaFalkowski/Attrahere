@@ -1,6 +1,7 @@
 ﻿using Attrahere.Controls.ColorPicker;
 using Attrahere.Model;
 using Attrahere.Tools;
+using Attrahere.Tools.DataIO;
 using Attrahere.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,11 @@ namespace Attrahere
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             (DataContext as MainWindowViewModel).WiewLoadedCommand.Execute(sender);
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            ExportToJPEG.Export(App.BitmapPainting);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Attrahere.Tools
 
         public Color GetColor(double iterationRate)
         {
-            if (iterationRate>1)
+            if (iterationRate > 1)
             {
                 return Colors.Black;
             }
@@ -48,7 +48,7 @@ namespace Attrahere.Tools
             double Amax = dlugoscPrzedzialu * przedzial + 1;
 
             double procent = (iterationRate - Amin) / dlugoscPrzedzialu;
-            if (procent>1)
+            if (procent > 1)
             {
                 throw new NotImplementedException("procent nie może być większy od 1");
             }

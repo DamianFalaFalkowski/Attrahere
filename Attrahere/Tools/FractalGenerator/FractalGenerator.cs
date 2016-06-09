@@ -71,7 +71,7 @@ namespace Attrahere.Tools.FractalGenerator
             }
         }
 
-        public static byte[] GetBytesTable()
+        private static byte[] GetBytesTable()
         {
             ColoursMagican cm = 
                 new ColoursMagican(new ColoursMagican.ColoursMagicanSettings(Settings.ColorModifier));

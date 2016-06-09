@@ -22,7 +22,7 @@
                     <MenuItem Header="_Save" IsEnabled="False"/>
                 </MenuItem>
                 <MenuItem Header="_Export" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}">
-                    <MenuItem Header="_...to .jpg" IsEnabled="False"/>
+                    <MenuItem Header="_...to .jpg" IsEnabled="True" Click="MenuItem_Click"/>
                     <MenuItem Header="_...to .png" IsEnabled="False"/>
                     <MenuItem Header="_Set destination location" IsEnabled="False"/>
                 </MenuItem>

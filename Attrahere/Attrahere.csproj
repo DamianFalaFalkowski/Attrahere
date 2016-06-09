@@ -70,6 +70,7 @@
     <Compile Include="Model\GeneratorSettings.cs" />
     <Compile Include="Model\FractalSphere.cs" />
     <Compile Include="Tools\ColoursMagican.cs" />
+    <Compile Include="Tools\DataIO\ExportToJPEGcs.cs" />
     <Compile Include="Tools\FractalGenerator\FractalGenerator.cs" />
     <Compile Include="Tools\FractalGenerator\Interfaces\IFractalMode.cs" />
     <Compile Include="Tools\FractalGenerator\Metadata\ComplexBorders.cs" />
@@ -81,7 +82,6 @@
     <Compile Include="Tools\Shifting\CommandRelay.cs" />
     <Compile Include="Tools\HistoryStack.cs" />
     <Compile Include="Tools\Mandelbrot%28not in use%29.cs" />
-    <Compile Include="Tools\TenaciousCounter.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="View\SettingsView.xaml.cs">

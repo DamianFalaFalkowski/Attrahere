@@ -1,6 +1,7 @@
 ﻿using Attrahere.Controls.ColorPicker;
 using Attrahere.Model;
 using Attrahere.Tools;
+using Attrahere.Tools.DataIO;
 using Attrahere.Tools.FractalGenerator;
 using System;
 using System.Collections.ObjectModel;
@@ -159,7 +160,8 @@ namespace Attrahere.ViewModel
         }
         void GenerateFractal()
         {
-            Generate(false);
+            GenerateWithTastSaving();
+            //Generate(false);
         }
         void ZoomAndGenerateFractal(double zoomLevel)
         {
@@ -232,7 +234,60 @@ namespace Attrahere.ViewModel
 
             (App.MainWindow.DataContext as MainWindowViewModel).
                 SetMainScrollVieverContentCommand.Execute(fractalImage);
-        }     
+        }
+
+        private void GenerateWithTastSaving()
+        {
+            // przygotuj zmienne 
+            Rectangle area = new Rectangle() { Width = Convert.ToInt32(ImageRealisticWidth * (Dpi / 100)), Height = Convert.ToInt32(ImageRealisticWidth * (Dpi / 100)) };
+            PixelFormat format = PixelFormats.Bgr32;
+            Point center = new Point(CenterAtXAxis, CenterAtYAxis);
+
+            for (int j = 0; j < 30; j++)
+            {
+                Radius = Radius * 0.95;
+                // stwórz z nich ustawienia
+                GeneratorSettings GeneratorSettings =
+                    new GeneratorSettings(area, Radius, Dpi, MaximumIteration, format, center);
+                GeneratorSettings.ColorModifier = new ColorModifier(ColorsList.Count);
+
+                // dodaj kolory
+                for (int i = 0; i < ColorsList.Count; i++)
+                {
+                    GeneratorSettings.ColorModifier.Edit(i, Color.FromRgb(ColorsList[i].R, ColorsList[i].G, ColorsList[i].B));
+                }
+
+                FractalGenerator.ChangeSettings(GeneratorSettings);
+                FractalGenerator.ChangeMode(FractalGenerator.GeneratorModes.MandelbrotSeries);
+
+                // wygeneruj tablię           
+                byte[] arr = FractalGenerator.Generate(GeneratorSettings);
+
+                // stworz bitmapę
+                App.BitmapPainting = new WriteableBitmap((int)area.Width, (int)area.Width, Dpi, Dpi, format, null);
+                // zapisz tablicę bajtów do bitmapy
+                App.BitmapPainting.WritePixels(
+                    new Int32Rect(0, 0, App.BitmapPainting.PixelWidth,
+                    App.BitmapPainting.PixelHeight), arr, App.BitmapPainting.PixelWidth *
+                    ((App.BitmapPainting.Format.BitsPerPixel + 7) / 8), 0);
+
+                ExportToJPEG.Export(App.BitmapPainting);
+            }
+                 
+            // stwórz obraz z bitmapy i dodaj go do scroll viewera
+            Image fractalImage = new Image()
+            {
+                Width = App.BitmapPainting.Width,
+                Height = App.BitmapPainting.Height,
+                Source = App.BitmapPainting
+            };
+            fractalImage.MouseMove += FractalImage_MouseMove;
+            fractalImage.MouseDown += FractalImage_MouseDown;
+
+            (App.MainWindow.DataContext as MainWindowViewModel).
+                SetMainScrollVieverContentCommand.Execute(fractalImage);
+        }
+
         //private void InitBitmap()
         //{
         //    var newSettings = FractalGenerator.Settings;
