@@ -103,6 +103,7 @@ namespace Attrahere.ViewModel
         public Shifting.CommandRelay RedoChangesCommand;
         public Shifting.CommandRelay RemoveColorCommand;
         public Shifting.CommandRelay AddColorCommand;
+        public Shifting.CommandRelay GenerateWithSavingCommand;
 
         //ctors
         public SettingsViewModel()
@@ -117,6 +118,7 @@ namespace Attrahere.ViewModel
             RedoChangesCommand = new Shifting.CommandRelay(RedoChanges);
             RemoveColorCommand = new Shifting.CommandRelay(RemoveColor);
             AddColorCommand = new Shifting.CommandRelay(AddColor);
+            GenerateWithSavingCommand = new Shifting.CommandRelay(GenerateWithSaving);
 
             ColorsList = new ObservableCollection<ColorPickerViewModel>() { };
             ColorsList.Add(new ColorPickerViewModel(0, 0, 0));
@@ -160,12 +162,11 @@ namespace Attrahere.ViewModel
         }
         void GenerateFractal()
         {
-            GenerateWithTastSaving();
-            //Generate(false);
+            Generate(false);
         }
         void ZoomAndGenerateFractal(double zoomLevel)
         {
-            //Radius = Radius / zoomLevel;
+            Radius = Radius / zoomLevel;
             Generate(false);
         }       
         void SetCenterPoint(double x, double y)
@@ -236,7 +237,7 @@ namespace Attrahere.ViewModel
                 SetMainScrollVieverContentCommand.Execute(fractalImage);
         }
 
-        private void GenerateWithTastSaving()
+        private void GenerateWithSaving()
         {
             // przygotuj zmienne 
             Rectangle area = new Rectangle() { Width = Convert.ToInt32(ImageRealisticWidth * (Dpi / 100)), Height = Convert.ToInt32(ImageRealisticWidth * (Dpi / 100)) };
@@ -244,15 +245,15 @@ namespace Attrahere.ViewModel
             Point center = new Point(CenterAtXAxis, CenterAtYAxis);
 
             int iteration = 0;
-            for (int j = 0; j < 50; j++)
-            {
-                iteration+=1;
-                if (iteration==3)
+            for (int j = 0; j < 10; j++)
+            {                
+                if (iteration==5)
                 {
                     MaximumIteration = MaximumIteration + 1;
                     iteration = 0;
                 }
-                Radius = Radius * 0.975;
+                iteration += 1;
+                Radius = Radius * 0.995;
                 // stwórz z nich ustawienia
                 GeneratorSettings GeneratorSettings =
                     new GeneratorSettings(area, Radius, Dpi, MaximumIteration, format, center);

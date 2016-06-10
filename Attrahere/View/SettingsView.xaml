@@ -44,7 +44,9 @@
         <Button Content="Zoom(x0.5)" Click="ZoomX05_Click" Background="#FFAFD7EA"/>
         <Button Content="Zoom(x2)" Click="ZoomX2_Click" Background="#FFFB9E8A"/>
         <Button Content="Zoom(x4)" Click="ZoomX4_Click" Background="#FFFB9E8A"/>
-        <Button Content="Generate" Click="Generate_Click" Background="#FF78DA9C" />    
+        <Button Content="Generate" Click="Generate_Click" Background="#FF78DA9C" />
+        <Button Content="Generate with saving" 
+                Click="GenerateWithSaving_Click" Background="#FF78DA9C" />
 
         <Rectangle Height="20" HorizontalAlignment="Stretch"/>
         

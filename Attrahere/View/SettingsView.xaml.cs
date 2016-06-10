@@ -39,6 +39,11 @@ namespace Attrahere.View
             VM.GenerateFractalCommand.Execute();
         }
 
+        private void GenerateWithSaving_Click(object sender, RoutedEventArgs e)
+        {
+            VM.GenerateWithSavingCommand.Execute();
+        }
+
         private void ZoomX2_Click(object sender, RoutedEventArgs e)
         {
             VM.ZoomAndGenerateFractalCommand.Execute(2);

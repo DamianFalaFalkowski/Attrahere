@@ -1,6 +1,8 @@
 ﻿using Attrahere.Tools;
 using System;
 using System.ComponentModel;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Attrahere.ViewModel
 {
@@ -34,7 +36,10 @@ namespace Attrahere.ViewModel
         // commands body
         void SetMainScrollVieverContent(object obj)
         {
-            MainScrollViewerContent = obj;
+            Viewbox vb = new Viewbox();
+            vb.Child = obj as FrameworkElement;
+            //(obj as FrameworkElement).HorizontalAlignment = HorizontalAlignment.Stretch;
+            MainScrollViewerContent = vb;
         }
 
         void RenderFractal(byte[] bytes)
