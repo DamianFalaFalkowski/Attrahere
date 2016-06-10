@@ -247,13 +247,16 @@ namespace Attrahere.ViewModel
             int iteration = 0;
             for (int j = 0; j < 10; j++)
             {                
-                if (iteration==5)
+                if (iteration==0)
                 {
                     MaximumIteration = MaximumIteration + 1;
                     iteration = 0;
                 }
-                iteration += 1;
-                Radius = Radius * 0.995;
+                else
+                {
+                    iteration += 1;
+                }
+                Radius = Radius * 0.95;
                 // stwórz z nich ustawienia
                 GeneratorSettings GeneratorSettings =
                     new GeneratorSettings(area, Radius, Dpi, MaximumIteration, format, center);
