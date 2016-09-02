@@ -22,14 +22,15 @@ namespace Attrahere
         //public static Mandelbrot Mandel;
         public static HistoryStack HistoryStack;
         public static WriteableBitmap BitmapPainting;
-        
-        
+        public static ExtensionsManager ExtensionsManager;
 
+        
         public App()
         {
             //var sett = new GeneratorSettings(MainWindow
             //Mandel = new Mandelbrot();
             HistoryStack = new HistoryStack();
+            ExtensionsManager = new ExtensionsManager();
         }
 
         

@@ -6,6 +6,8 @@ using Attrahere.Tools.FractalGenerator;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -97,6 +99,7 @@ namespace Attrahere.ViewModel
 
         // commands definitions
         public Shifting.CommandRelay GenerateFractalCommand;
+        public Shifting.CommandRelay<GeneratorSettings> GenerateFractalFromSettingsCommand;
         public Shifting.CommandRelay<double> ZoomAndGenerateFractalCommand;
         public Shifting.CommandRelay<double, double> SetCenterPointCommand;
         public Shifting.CommandRelay UndoChangesCommand;
@@ -119,6 +122,7 @@ namespace Attrahere.ViewModel
             RemoveColorCommand = new Shifting.CommandRelay(RemoveColor);
             AddColorCommand = new Shifting.CommandRelay(AddColor);
             GenerateWithSavingCommand = new Shifting.CommandRelay(GenerateWithSaving);
+            GenerateFractalFromSettingsCommand = new Shifting.CommandRelay<GeneratorSettings>(GenerateFractalFromSettings);
 
             ColorsList = new ObservableCollection<ColorPickerViewModel>() { };
             ColorsList.Add(new ColorPickerViewModel(0, 0, 0));
@@ -134,7 +138,25 @@ namespace Attrahere.ViewModel
         }
 
         // commands body
-        void UndoChanges()
+        async void GenerateFractalFromSettings(GeneratorSettings settings)
+        {
+            ImageRealisticWidth = settings.Area.Width;
+            ImageRealisticHeight = settings.Area.Height;
+            Radius = settings.Radius;
+            MaximumIteration = settings.MaxIterationCount;
+            CenterAtXAxis = settings.Center.X;
+            CenterAtYAxis = settings.Center.Y;
+            _pixelFormat = settings.PixelFormat;
+            Dpi = settings.Dpi;
+            ColorsList.Clear();
+            foreach (var item in settings.ColorModifier.ColorsTable)
+            {
+                ColorsList.Add(new ColorPickerViewModel(item.R,item.G,item.B));
+            }
+            await Generate(true);
+        }
+
+        async void UndoChanges()
         {
             GeneratorSettings sett = App.HistoryStack.PopPrevious();
             Radius = sett.Radius;
@@ -143,11 +165,11 @@ namespace Attrahere.ViewModel
             CenterAtXAxis = sett.Center.X;
             CenterAtXAxis = sett.Center.Y;
 
-            Generate(true);
+            await Generate(true);
             NotifyPropertyChanged("IsUndoAvalible");
             NotifyPropertyChanged("IsRedoAvalible");
         }
-        void RedoChanges()
+        async void RedoChanges()
         {
             GeneratorSettings sett = App.HistoryStack.PopNext();
             Radius = sett.Radius;
@@ -156,18 +178,18 @@ namespace Attrahere.ViewModel
             CenterAtXAxis = sett.Center.X;
             CenterAtXAxis = sett.Center.Y;
 
-            Generate(false);
+            await Generate(false);
             NotifyPropertyChanged("IsUndoAvalible");
             NotifyPropertyChanged("IsRedoAvalible");
         }
-        void GenerateFractal()
+        async void GenerateFractal()
         {
-            Generate(false);
+            await Generate(false);
         }
-        void ZoomAndGenerateFractal(double zoomLevel)
+        async void ZoomAndGenerateFractal(double zoomLevel)
         {
             Radius = Radius / zoomLevel;
-            Generate(false);
+            await Generate(false);
         }       
         void SetCenterPoint(double x, double y)
         {
@@ -187,16 +209,55 @@ namespace Attrahere.ViewModel
         {
             ColorsList.Add(new ColorPickerViewModel(0, 0, 0));
         }
-        private void Generate(bool previous)
+
+        public GeneratorSettings GetGeneratorSettings()
         {
+            Rectangle area = new Rectangle() { Width = Convert.ToInt32(ImageRealisticWidth * (Dpi / 100)), Height = Convert.ToInt32(ImageRealisticWidth * (Dpi / 100)) };
+            PixelFormat format = PixelFormats.Bgr32;
+            Point center = new Point(CenterAtXAxis, CenterAtYAxis);
+            var sett = new GeneratorSettings(area, Radius, Dpi, MaximumIteration, format, center);
+            sett.ColorModifier = new ColorModifier(ColorsList.Count);
+            for (int i = 0; i < ColorsList.Count; i++)
+            {
+                sett.ColorModifier.Edit(i, Color.FromRgb(ColorsList[i].R, ColorsList[i].G, ColorsList[i].B));
+            }
+            return sett;
+        }
+
+        private async Task Generate(bool previous)
+        {
+            await Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(() =>
+            {
+                (App.MainWindow.DataContext as MainWindowViewModel).StatusManagerGetBusyCommand.Execute();
+            }));
+            await Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(() =>
+            {
+                Image res = _generate(previous);
+            NotifyPropertyChanged("IsUndoAvalible");
+            NotifyPropertyChanged("IsRedoAvalible");
+            (App.MainWindow.DataContext as MainWindowViewModel).
+                SetMainScrollVieverContentCommand.Execute(res);
+            }));
+            await Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(() =>
+            {
+                (App.MainWindow.DataContext as MainWindowViewModel).StatusManagerGetReadyCommand.Execute();
+            }));
+            
+        }
+
+        private Image _generate(bool previous)
+        {
+            var sett = GetGeneratorSettings();
             // przygotuj zmienne 
-            Rectangle area = new Rectangle() { Width = Convert.ToInt32(ImageRealisticWidth*(Dpi/100)), Height = Convert.ToInt32(ImageRealisticWidth * (Dpi / 100))};
+            Rectangle area = new Rectangle() { Width = Convert.ToInt32(sett.Area.Width * (sett.Dpi / 100)), Height = Convert.ToInt32(sett.Area.Height * (sett.Dpi / 100)) };
             PixelFormat format = PixelFormats.Bgr32;
             Point center = new Point(CenterAtXAxis, CenterAtYAxis);
 
+            
+
             // stwórz z nich ustawienia
             GeneratorSettings GeneratorSettings =
-                new GeneratorSettings(area, Radius,Dpi, MaximumIteration, format, center);
+                new GeneratorSettings(area, Radius, Dpi, MaximumIteration, format, center);
             GeneratorSettings.ColorModifier = new ColorModifier(ColorsList.Count);
 
             // dodaj kolory
@@ -209,9 +270,7 @@ namespace Attrahere.ViewModel
             if (!previous && GeneratorSettings != null)
             {
                 App.HistoryStack.Push(GeneratorSettings);
-            }
-            NotifyPropertyChanged("IsUndoAvalible");
-            NotifyPropertyChanged("IsRedoAvalible");
+            }          
 
             FractalGenerator.ChangeSettings(GeneratorSettings);
             FractalGenerator.ChangeMode(FractalGenerator.GeneratorModes.MandelbrotSeries);
@@ -224,21 +283,31 @@ namespace Attrahere.ViewModel
             // zapisz tablicę bajtów do bitmapy
             App.BitmapPainting.WritePixels(
                 new Int32Rect(0, 0, App.BitmapPainting.PixelWidth,
-                App.BitmapPainting.PixelHeight), arr, App.BitmapPainting.PixelWidth * 
+                App.BitmapPainting.PixelHeight), arr, App.BitmapPainting.PixelWidth *
                 ((App.BitmapPainting.Format.BitsPerPixel + 7) / 8), 0);
             // stwórz obraz z bitmapy i dodaj go do scroll viewera
-            Image fractalImage = new Image() { Width = App.BitmapPainting.Width,
-                Height = App.BitmapPainting.Height, Source = App.BitmapPainting
+            Image fractalImage = new Image()
+            {
+                Width = App.BitmapPainting.Width,
+                Height = App.BitmapPainting.Height,
+                Source = App.BitmapPainting
             };
             fractalImage.MouseMove += FractalImage_MouseMove;
             fractalImage.MouseDown += FractalImage_MouseDown;
 
-            (App.MainWindow.DataContext as MainWindowViewModel).
-                SetMainScrollVieverContentCommand.Execute(fractalImage);
+            return fractalImage;
         }
 
         private void GenerateWithSaving()
         {
+            
+                _generateWithSaving();
+            
+        }
+
+        private void _generateWithSaving()
+        {
+            (App.MainWindow.DataContext as MainWindowViewModel).StatusManagerGetBusyCommand.Execute();
             // przygotuj zmienne 
             Rectangle area = new Rectangle() { Width = Convert.ToInt32(ImageRealisticWidth * (Dpi / 100)), Height = Convert.ToInt32(ImageRealisticWidth * (Dpi / 100)) };
             PixelFormat format = PixelFormats.Bgr32;
@@ -246,8 +315,8 @@ namespace Attrahere.ViewModel
 
             int iteration = 0;
             for (int j = 0; j < 10; j++)
-            {                
-                if (iteration==0)
+            {
+                if (iteration == 0)
                 {
                     MaximumIteration = MaximumIteration + 1;
                     iteration = 0;
@@ -284,7 +353,7 @@ namespace Attrahere.ViewModel
 
                 ExportToJPEG.Export(App.BitmapPainting);
             }
-                 
+
             // stwórz obraz z bitmapy i dodaj go do scroll viewera
             Image fractalImage = new Image()
             {
@@ -297,6 +366,7 @@ namespace Attrahere.ViewModel
 
             (App.MainWindow.DataContext as MainWindowViewModel).
                 SetMainScrollVieverContentCommand.Execute(fractalImage);
+            (App.MainWindow.DataContext as MainWindowViewModel).StatusManagerGetReadyCommand.Execute();
         }
 
         //private void InitBitmap()

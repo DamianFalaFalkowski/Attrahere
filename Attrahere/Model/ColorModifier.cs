@@ -7,6 +7,7 @@ using System.Windows.Media;
 
 namespace Attrahere.Model
 {
+    [Serializable]
     public class ColorModifier
     {
         public Color[] ColorsTable;

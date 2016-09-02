@@ -18,8 +18,8 @@
         <DockPanel>
             <Menu DockPanel.Dock="Top" Background="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}">
                 <MenuItem Header="_File" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}">
-                    <MenuItem Header="_Open" IsEnabled="False"/>
-                    <MenuItem Header="_Save" IsEnabled="False"/>
+                    <MenuItem Header="_Open" Click="MenuItem_Click_Load"/>
+                    <MenuItem Header="_Save" Click="MenuItem_Click_Save"/>
                 </MenuItem>
                 <MenuItem Header="_Export" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}">
                     <MenuItem Header="_...to .jpg" IsEnabled="True" Click="MenuItem_Click"/>
@@ -80,8 +80,8 @@
             <Rectangle Width="1" VerticalAlignment="Stretch" HorizontalAlignment="Right" Fill="LightGray"/>
             
             <Grid Grid.Column="1" Margin="2">
-                <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="#FF2DD42D"/>
-                <TextBlock Text="Status OK" FontSize="8" VerticalAlignment="Center"/>
+                <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Path=StatusColor}"/>
+                <TextBlock Text="{Binding Path=StatusMessage}" FontSize="8" VerticalAlignment="Center"/>
             </Grid>
             
             <Rectangle Grid.Column="1" Width="1" VerticalAlignment="Stretch" HorizontalAlignment="Right" Fill="LightGray"/>

@@ -3,8 +3,10 @@ using Attrahere.Model;
 using Attrahere.Tools;
 using Attrahere.Tools.DataIO;
 using Attrahere.ViewModel;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +27,7 @@ namespace Attrahere
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainWindowViewModel VM;
+        public MainWindowViewModel VM;
 
         public MainWindow()
         {
@@ -42,6 +44,16 @@ namespace Attrahere
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             ExportToJPEG.Export(App.BitmapPainting);
+        }
+
+        private void MenuItem_Click_Save(object sender, RoutedEventArgs e)
+        {
+            (DataContext as MainWindowViewModel).SaveFileCommand.Execute();
+        }
+
+        private void MenuItem_Click_Load(object sender, RoutedEventArgs e)
+        {
+            (DataContext as MainWindowViewModel).OpenFileCommand.Execute();
         }
     }
 }

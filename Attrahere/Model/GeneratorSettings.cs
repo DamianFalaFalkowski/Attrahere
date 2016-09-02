@@ -25,6 +25,9 @@ namespace Attrahere.Model
 
         public ColorModifier ColorModifier { get; set; }
 
+        public GeneratorSettings()
+        { }
+
         public GeneratorSettings(Rectangle area, double radius, double dpi, 
             uint iterationCount, PixelFormat pixelFormat, Point center)
         {
